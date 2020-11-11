@@ -1,5 +1,5 @@
 ---
-title: 加密算法|House Recommender System
+title: 加密算法|RSA
 date: 2020-09-10
 author: Kevin 吴嘉文
 categories:
@@ -36,7 +36,7 @@ $$
   证明：
 
   先 证 明 充 分 性，即 当 $$ n=\prod_{i=1}^{r} p_{i} $$ 时 $$, \quad a^{1+k_{\theta}(n)}=a \bmod n$$
-  1 .$$ 若 $n|a$$ ,  有 $$a^{1+k p(n)} \equiv 0 \equiv a \bmod n$$ 成立 
+  1 .$$ 若 n|a$$ ,  有 $$a^{1+k p(n)} \equiv 0 \equiv a \bmod n$$ 成立 
   2.若 $a$ 非 $0 \quad n=\prod_{i=1}^{r} p_{i}, \therefore \varphi(n)=\prod_{i=1}^{r} \varphi\left(p_{i}\right)$
   $$
   \forall p_{j} 1 \leq j \leq r, 
