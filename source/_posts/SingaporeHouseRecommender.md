@@ -1,5 +1,5 @@
 ---
-title: 租房推荐系统|House Recommender System
+title: 我的第一个ML个人项目|House Recommender System
 date: 2019-11-08
 author: Kevin 吴嘉文
 categories:
@@ -10,9 +10,7 @@ tags:
 mathjax: true
 toc: true
 comments: 基于新加坡Airbnb房源，实现通过房屋周边环境，推荐用户心意的房屋
-
 ---
-
 
 # Singapore House Recommender
 
@@ -164,3 +162,11 @@ $$
 $$
 
 
+
+> 2019年9月，第一次接触了机械学习和计算机编程。第一个课程是吴承恩Andrew NG的机械学习 CS229。
+>
+> 难忘当时，每天兴奋地熬夜希望多学一个算法，傻笑自己debug忘了的午餐和晚餐，享受着自己一个个脑洞变成现实。
+>
+> 从此走上了这条路，愿自己不忘初心。
+>
+> 然后两周后，有了这个不仅简单而且漏洞百出的作品。

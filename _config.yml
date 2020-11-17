@@ -145,6 +145,6 @@ backup:
       message: back-up
       repository:
               github: https://github.com/kevinng77/kevinng77.github.io.git,backup
-              coding: https://github.com/kevinng77/kevinng77.github.io.git,coding
+              #coding: https://github.com/kevinng77/kevinng77.github.io.git,coding
 
   

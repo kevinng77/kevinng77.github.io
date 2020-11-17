@@ -84,7 +84,8 @@ share_jia: true
 #1、多说
 duoshuo: false
 
-#2、网易云跟帖
+#
+#网易云跟帖
 wangyiyun: false
 
 #3、畅言
@@ -138,4 +139,17 @@ backup:
         repository:
                 github: https://github.com/kevinng77/kevinng777.github.io.git,backup
 
-aboutme: 初级跑步爱好者<br>指弹吉他手<br>嵌入式初学者<br>南方沿海城市居民
+valine:
+ appid: SF2aGvcd8r0hMxwBoSi6zX7W-MdYXbMMI #Leancloud应用的appId
+ appkey: uGJHF81Yyk9Bkd7P9AHL7WPH #Leancloud应用的appKey
+ verify: false #验证码，verify和notify这两个最好就别动了
+ notify: false #评论回复提醒
+ avatar: mm #评论列表头像样式：''/mm/identicon/monsterid/wavatar/retro/hide
+ placeholder: Comment Here 感谢你的留言与点评呢
+
+
+
+
+
+
+aboutme: 初级跑步爱好者<br>指弹吉他<br>南方沿海城市居民<br><br>2019年9月<br>第一次接触了机械学习和计算机编程<br>第一个课程是Andrew NG的 CS229<br>难忘当时<br>每天兴奋地熬夜希望多学一个算法<br>傻笑自己debug忘了的午餐和晚餐<br>享受着自己一个个脑洞变成现实<br><br>从此走上了这条路<br>愿自己不忘初心。
