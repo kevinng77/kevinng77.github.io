@@ -8,10 +8,9 @@ keywords:
 language: en
 timezone: ''
 categories:
-- Cybersecurity|网络安全
+- 理论分析
 tags:
-- ECDH, ECC
-- WhatsApp Encryption
+- Cybersecurity|网络安全
 mathjax: true
 toc: true
 comments: 基础加密算法分析
@@ -72,6 +71,8 @@ Elliptic Curve Cryptography - ECC is a public key Cryptography to share symmetri
 
 Similar with RSA, ECC is trapdoor function. However, the trapdoor of RSA is the factoring prime numbers while ECC is solving elliptic curve discrete logarithm problem.
 
+
+
 ### Concept
 
 Elliptic curves: d
@@ -128,13 +129,17 @@ In case some of the point that we get might located far away from y-axis. A "max
 + n: Order of G.
 + h: Cofactor  
 
-### ECC vs. RSA
+### 
 
 a 256 bit key size ECC can achieve the same level of security as a 3072 bit key size RSA.
+
+
 
 ## ECDH 
 
 At first, you might consider ECDH as a Combination of ECC and DH, we replace the power module function with ECC, that should be helpful for your understanding.
+
+
 
 ### ECDH process
 
@@ -224,13 +229,19 @@ what done here is:
 
 Once Alice and Bob have each others public key, they will always get same shared secret.
 
+
+
 ### When Receiving Session Setup 
 
 At the first time some one receive a message, the recipient receives a message that includes session setup information
 
 1. The recipient calculates the corresponding master_secret using its own private keys and the public keys advertised in the header of the incoming message. **the recipient can generate a same shared master_secret as the initiator, based on the ECDH property** 
+
 2. The recipient deletes the One-Time Pre Key used by the initiator.
+
 3. The initiator uses **HKDF** to derive a corresponding **Root Key** and **Chain Keys** from the master_secret.
+
+   
 
 ### When Exchanging Messages 
 
@@ -266,7 +277,10 @@ So message key change each time, and they always share same message key
 encrypt using **Message Key, AES-256** in **CBC** mode, and **HMAC-SHA256** for authentication
 
 + the authentication method are not mentioned
+
 + I guess it sent: $$(C,S),\ where\ (C,S) = (E(HMAC(M,k_2)||M,k_1),HMAC(M,k_2))$$ 
+
+  
 
 ### Transmitting Media and Other Attachments
 
@@ -280,6 +294,8 @@ Alice want to send a file to Bob:
 + Alice transmits a normal message to Bob, the ephemeral key will be sent together to Bob.
 
 + Bob download the file, verifies the SHA256 hash, verifies the MAC, and decrypt the file
+
+  
 
 ### Group Messages 
 
@@ -303,8 +319,6 @@ For all subsequent messages to the group:
 + The sender signs the ciphertext using the Signature Key.
 
 + The sender transmits the single ciphertext message to the server, which does server-side fan-out to all group participants.
-
-
 
 
 

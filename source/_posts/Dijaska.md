@@ -8,10 +8,9 @@ keywords:
 language: cn
 timezone: ''
 categories:
-- 算法|algorithm
+- 理论分析
 tags:
-- Dijkstra
-- Shortest Path
+- algorithm|算法
 mathjax: true
 toc: true
 comments: 建立在贪婪算法上的一种最短路径算法原理分析，算法优化，偏向理论

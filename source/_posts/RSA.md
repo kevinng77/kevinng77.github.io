@@ -3,9 +3,9 @@ title: 加密算法|RSA
 date: 2020-09-10
 author: Kevin 吴嘉文
 categories:
-- Cybersecurity|网络安全
+- 理论分析
 tags:
-- RSA
+- Cybersecurity|网络安全
 mathjax: true
 toc: true
 comments: 基础加密算法分析
@@ -24,6 +24,8 @@ $$
 
 + 陷门：大数n的因式分解
   若已知 $$n \theta$$ 的因式分解，即$$n=p q,$$ 则 $$\varphi(n)=(p-1)(q-1)$$ 若 $$\mathrm{gcd}(b, \varphi(n))=1,$$ 且 $$a b \equiv 1 \bmod \varphi(n)$$
+  
+  
 
 ## 数学基础
 
@@ -76,6 +78,8 @@ $a^{1+k\phi (n)} \equiv a \bmod n, k = 1, ed 可以表示为 1+k\phi(n)$
 注： $p,q,\varphi(n)$ 需要保密
 $\left\{\begin{array}{c}n=p q \\ \varphi(\mathrm{n})=(p-1)(q-1)\end{array}\right.$
 $\Rightarrow p^{2}-(n-\varphi(n)+1) p+n=0$ 
+
+
 
 ## 相关算法
 
@@ -240,26 +244,27 @@ file.write("\n(P-1)*(Q-1): " + str((Pvalue - 1) * (Qvalue - 1)))
 file.close()
 ```
 
+
+
 ## 相关问题
 
-Malleable problem
-
-+ 如果加密的数据为数字, 攻击者做 $$C \times 2^e$$. 接收者不会意识到被攻击了.
-
-Deterministic problem
-
++ 如果加密的数据为数字, 攻击者做 $$C \times 2^e$$. 接收者不会意识到被攻击了。
 + 一样的密钥与明文生成一样的密文
-
-加密时间过长
++ 加密时间过长
 
 解决方案
 
 + padding
-+ E 通常用65537
-+ 密钥长度: 1024 bits (309 digits), 现多用 2048 bits
+
++ E 通常用65537，这是个被公众认为可以加快加密过程，并且保留安全性的数字
+
++ 使用密钥长度: 1024 bits (309 digits), 现多用 2048 bits
+
 + 使用DES/AES加密M，然后用RSA加密其密钥
 
-量子计算机的威胁: 舒尔算法 - Shor 
+  
+
+## 量子计算机的威胁: 舒尔算法 - Shor 
 
 + time complexity - $$O(\log n)$$  
 

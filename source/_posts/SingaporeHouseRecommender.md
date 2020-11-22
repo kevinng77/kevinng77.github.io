@@ -1,11 +1,11 @@
 ---
-title: 我的第一个ML个人项目|House Recommender System
+title: 首个个人项目|House Recommender System
 date: 2019-11-08
 author: Kevin 吴嘉文
 categories:
-- ML|机器学习
+- Project|项目
 tags:
-- K-mean
+- ML|机器学习
 - python
 mathjax: true
 toc: true
@@ -17,7 +17,7 @@ comments: 基于新加坡Airbnb房源，实现通过房屋周边环境，推荐�
 
 > Nowadays youth spend less ans less time is their room. They are more likely to rent house based on the surrounding venues, regardless of room size, equipment and decoration.
 >
-> For instance, Chinese commuter may want to find some house that surrounded by Chinese restaurant if they can not accept other style of food.
+> For instance, Chinese commuter may want to find some house that surrounded by Chinese restaurant if they can not accept other type of food.
 >
 > This system enables user to filter house based on the outside environment.
 
@@ -163,10 +163,8 @@ $$
 
 
 
-> 2019年9月，第一次接触了机械学习和计算机编程。第一个课程是吴承恩Andrew NG的机械学习 CS229。
+> The system can be improved by adding online learning system to update the clustering, keeping crawling updating house information. 
 >
-> 难忘当时，每天兴奋地熬夜希望多学一个算法，傻笑自己debug忘了的午餐和晚餐，享受着自己一个个脑洞变成现实。
+> The key point of this system is recommend the house based on the outside environment. You are not able to achieve that on Airbnb website or other apps.
 >
-> 从此走上了这条路，愿自己不忘初心。
->
-> 然后两周后，有了这个不仅简单而且漏洞百出的作品。
+> Hope you enjoy this idea :)
