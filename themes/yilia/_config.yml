@@ -68,7 +68,7 @@ top: true
 # Miscellaneous
 baidu_analytics: ''
 google_analytics: ''
-favicon: /favicon.png
+favicon: /img/favicon.ico
 
 #你的头像url
 #avatar: "https://www.jianguoyun.com/c/tblv2/V7qq6N6Fswg_qHG-9XiNpBF8LwK6Pq89uonMrzXnv8m1_IhqaGooFDlbzTDa3NgxLmaZT7Un/NL09W1EZvgSzN-p4MGUcVQ/l"
