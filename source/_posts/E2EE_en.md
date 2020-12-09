@@ -75,9 +75,15 @@ Similar with RSA, ECC is trapdoor function. However, the trapdoor of RSA is the 
 
 ### Concept
 
-Elliptic curves: d
+Weiersrass function:
+
+$$y^2 + axy + by = x^3 + cx^2 + dx + e$$
+
+Elliptic curves: 
 
 $$ y^2 = x^3 + ax+b $$
+
+$$ (a，b \in GF(p)， \Delta = -16 (4a^3 + 27b^2) \ne 0 )$$ 
 
 A and b are constant. The shape of a elliptic curves is similar to the following:
 
@@ -94,19 +100,22 @@ Property of Elliptic Curves:
 
 **Point Addition**
 
-Owning to Any non-vertical line intersect the curve in at most 3 points, given 2 points of the 3, we can derive the third one. For instance in the following picture, given P and Q, we can derive -R, which is  $$ (x_R , -y_R) $$. And finally we get R  $$ (x_R , y_R) $$ 
+Owning to Any non-vertical line intersect the curve in at most 3 points, given 2 points of the 3, we can derive the third one. For instance in the following picture, given P and Q, we can derive -R, which is  $$ (x_3 , -y_3) $$. And finally we get R  $$ (x_3 , y_3) $$ 
 
 And the process is called Point Addition:
 
-Notation: $$P+Q = R$$
+Notation: $$P(x_1,y_1)+Q(x_2,y_2) = R(x_3,y_3)$$
 
- 
+$$
+x_{3}=\left(\frac{y_{2}-y_{1}}{x_{2}-x_{1}}\right)^{2}-x_{1}-x_{2}\\ \text {  } y_{3}=\left(\frac{y_{2}-y_{1}}{x_{2}-x_{1}}\right)\left(x_{1}-x_{3}\right)-y_{1}
+$$
 
-![servlet](/img/E2EE_en/servlet.png)
+
+![pointadd-1607245987453](/img/E2EE_en/pointadd-1607245987453.jpg)
 
 
 
-*(picture source: https://devcentral.f5.com/s/articles/real-cryptography-has-curves-making-the-case-for-ecc-20832)*
+
 
 **Point Doubling**
 
@@ -116,28 +125,105 @@ Notation: $$2P = R$$
 
 If we do R point addition P, then we get $$R + P = 2P + P = 3P $$ 
 
-![servlet](/img/E2EE_en/servlet-1605445907032.jpg)
 
-*(picture source: https://devcentral.f5.com/s/articles/real-cryptography-has-curves-making-the-case-for-ecc-20832)*
+
+![pointpower](/img/E2EE_en/pointpower.jpg)
 
 In case some of the point that we get might located far away from y-axis. A "max" value on the x-axis was set, that performs similar with modulo value. Such that you can get the point within a certain key size. The max value is represented as parameter "p" in ECC
 
-**Parameter in ECC**
 
-+ Curve function: $$y^2 = x^3 + ax+b$$ 
-+ G: Generator point on the curve, where we start the computation
-+ n: Order of G.
-+ h: Cofactor  
 
-### 
+## ECC prime finite fields
 
-a 256 bit key size ECC can achieve the same level of security as a 3072 bit key size RSA.
+**Point Set**: Given $$p = 13$$，ECC curve function $$y^2 = x^3  -4x + 4 \mod 13$$， the points in $$E_{13}(-4，4)$$ are: $$(0， 2)， (0， 11)， (1， 1)， (1， 12)， (2， 2)， (2， 11)， (4， 0)， (6， 1)， (6， 12)， (8， 4)， (8， 9)， (11， 2)， (11， 11)，O_{inf}$$
+
+```python
+a，b，p = -4，4，13
+E_p = [(x，y) for x in range(p) for y in range(p) if  y**2 %p  == (x**3 + a*x + b)%p  ] # and inf point
+```
+
+
+
+**prime finite fields operation**
+
+when $$4a^3+27b^2 \ne 0 (mod\ p)$$, let $$P(x_1，y_1)， Q(x_2，y_2) \in E_{p}(a， b)，$$ and $$ P \neq-Q，$$,then $$P+Q=\left(x_{3}， y_{3}\right)$$ 
+$$
+\begin{array}{l}
+x_{3} \equiv \lambda^{2}-x_{1}-x_{2}(\bmod p) \\
+y_{3} \equiv \lambda\left(x_{1}-x_{3}\right)-y_{1}(\bmod p)
+\end{array}
+$$
+where
+$$
+\lambda=\left\{\begin{array}{l}
+\frac{y_{2}-y_{1}}{x_{2}-x_{1}},if\  P \neq Q \\
+\frac{3 x_{1}^{2}+a}{2 y_{1}},  if\  P=Q\ and\ P \ne -P
+\end{array}\right.
+$$
+
+
+
+
+e.g. int the following gragh $$P = (0，11) ， Q = ( 4，0)$$ , $$P+Q = R = (6，12)$$ 
+
+![lisan](/img/E2EE_en/lisan.jpg)
+
+```python
+# point addition
+def addition(P,Q,a,b,p):
+    (x1,y1),(x2,y2) = P,Q
+    L =(y2 - y1)* devision((x2 - x1),p) if P != Q else(3*x1**2+a)* devision((2*y1),p)
+    x3 = (L**2 - x1 - x2)%p
+    y3 = (L*(x1 - x3) - y1 )%p
+    return x3,y3
+
+# **devision operation based on Euclidean ** 
+def devision(a,p):
+    a %= p
+    d，x，y = Euclidean(a，p)
+    return x% p
+    
+    
+def Euclidean(a,b):
+    """
+    input int a， int b;
+    return int d = gcd(a，b); (int x，int y)，where ax + by = d
+    """
+    u,v = a,b
+    x1,y1,x2,y2 = 1,0,0,1
+    while u != 0:
+        q = int(v/u)
+        r = v - q*u
+        x = x2 - q*x1
+        y = y2 - q*y1
+        v,u,x2,x1,y2,y1 = u,r,x1,x,y1,y
+    d,x,y = v,x2,y2
+    return d,x,y,x1
+```
+
+
+
+$$Euclidean(a，p)$$ output $$d，x，y$$ where ：$$ a*x + p*y = d \because p\ is\ prime， \therefore d = 1$$, therefore $$a * a^{-1} = 1 \mod p$$ ，$$ \because a*x \mod p = 1，\ x\mod p= a^{-1}$$ 。
+
+
+
+**order of point**
+
+Given a point in filed, if there exist a minimum int n, such that $$nP = O_{inf}$$. Then n is the order of P.
+
+
+
+e.g.  $$E_{13}(-4，4)，P = (0，11)$$ the order of $$P$$ is 7, $$6P = (0，2)$$
+
+![order-1607259618094](/img/E2EE_en/order-1607259618094.jpg)
+
+
 
 
 
 ## ECDH 
 
-At first, you might consider ECDH as a Combination of ECC and DH, we replace the power module function with ECC, that should be helpful for your understanding.
+At first, you might consider ECDH as a Combination of ECC and DH, it replace the power module function with ECC.
 
 
 
@@ -147,29 +233,39 @@ Same here are Alice and Bob. Let give the ECDH function a notation: $$ECDH(x,*ar
 
 At the beginning, some basic information about the ECDH is public:
 
-+ The curve is $$y^2 = x^3 + 2x + 2$$
-+ p = 17, the max value should be prime number. The curve is considered a prime curve
-+ G = (5,1)
-+ n = 19
++ The curve is $$y^2 = x^3 -4x + 4$$
++ p = 13, the order of the field
++ G = (1,1), the base point
++ n = 7, the order of the base point
 
 To find n, you Point Double/Point Add starting from G until  reach a point at infinity. That is, the operations continue until the resultant line is vertical. In this case, n = 19.
 
-1) Alice generate random private key a = 3, and use it to generate public key $$A=a*G = 3G = (10,6)$$ . The operation * is point operation we discussed in ECC above. Hence, the public key is a point.
+1) Alice generate random private key a = 3, and use it to generate public key $$A=a*G = 3G = (0,2)$$ . The operation * is point operation we discussed in ECC above. Hence, the public key is a point.
 
-2) same for Bob. He get private key b = 9, and public key $$B = 9G = (7,6)$$.
+2) same for Bob. He get private key b = 4, and public key $$B = 4G = (0,11)$$.
 
 3) Alice sent public key to Bob. Owning to the trapdoor property of ECC, attacker is difficult to derive private key based on public key and public parameters. 
 
 4) Bob sent public key to Alice.
 
-5) Bob compute the shared secret by： $$Q =b*A = 9 * 3G = 27G = (13,7)$$ 
+5) Bob compute the shared secret by： $$Q =b*A = 4 * 3G  = (8,4)$$ 
 
-6) Alice compute the shared secret by $$Q'=a*B = 27G$$ 
+6) Alice compute the shared secret by $$Q'=a*B = (8,4)$$ 
 
 Alice、Bob shared same secret since: $$Q=b*A=b*(a*G)=(b*a)*G=(a*b)*G=a*(b*G)=a*B=Q'$$ . This property is similar with DH that we discuss above.
 
 
 
+**NIST Prime**
+
+some special prime makes ECC more efficient, such as:
+$$
+p_{192} = 2^{192}-2^{64} - 1\\
+p_{224} = 2^{224}-2^{96} + 1\\
+p_{256} = 2^{256}-2^{224} + 2^{192} + 2^{96} -  1\\
+p_{384} = 2^{384} - 2^{128}-2^{96} + 2^{32} - 1\\
+p_{521} = 2^{521}- 1\\
+$$
 You might referred to [this wiki page](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman) for more detail.
 
 ### Curve25519

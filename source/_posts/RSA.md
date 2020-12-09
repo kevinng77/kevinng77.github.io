@@ -16,7 +16,7 @@ comments: 基础加密算法分析
 
 ## 单向函数定义
 
-+ 假定 $n=p q(p, q$ 为不同的大素数 $), b$ 为正整数 $,$ 定义
++ 假定 $$n=p q(p, q 为不同的大素数 ), b 为正整数 $$, 定义
 
 $$
 f: \mathbb{Z}_{n} \rightarrow \mathbb{Z}_{n} f(x)=x^{b} \bmod n
@@ -82,6 +82,21 @@ $\Rightarrow p^{2}-(n-\varphi(n)+1) p+n=0$
 
 
 ## 相关算法
+
+### RSA加密于解密
+
+Bob 发送m给Alice
+
++ Bob使用Alice公钥 $$(n,e) $$加密得到 $$C = m^e \mod n$$
+
++ Alice 做 $$m = C^d \mod n$$ 得到明文
+
+### RSA 签名方案
+
+Bob发送消息给Alice，发送的内容为m
+
++ Bob 使用自己的私钥加密，发送 $$(m,H(m) ^d)$$ 给Alice,Alice 收到 $$(m,s)$$
++ Alice 用Bob的公钥做签名验证: 如果$$H(m)=s^e$$ 接受签名 
 
 ### Euclid's Algorithm - GCD
 
