@@ -22,8 +22,6 @@ comments: 基础加密算法分析
 >
 > This article describe how WhatsApp end-to-end Encryption work. Personally, the key of E2EE is ECDH, in the article ECC, DH and CURVE 25519 are also introduced
 
-<!--more-->
-
 
 
 ## Diffie-Hellman 
@@ -203,7 +201,7 @@ def Euclidean(a,b):
 
 
 
-$$Euclidean(a，p)$$ output $$d，x，y$$ where ：$$ a*x + p*y = d \because p\ is\ prime， \therefore d = 1$$, therefore $$a * a^{-1} = 1 \mod p$$ ，$$ \because a*x \mod p = 1，\ x\mod p= a^{-1}$$ 。
+The $$Euclidean(a，p)$$ output $$d，x，y$$ where ：$$ a*x + p*y = d \because p\ is\ prime， \therefore d = 1$$, therefore $$a * a^{-1} = 1 \mod p$$ ，$$ \because a*x \mod p = 1，\ x\mod p= a^{-1}$$ 。
 
 
 
@@ -219,7 +217,7 @@ e.g.  $$E_{13}(-4，4)，P = (0，11)$$ the order of $$P$$ is 7, $$6P = (0，2)$
 
 
 
-
+<!--more-->
 
 ## ECDH 
 

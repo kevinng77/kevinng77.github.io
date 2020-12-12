@@ -1,5 +1,5 @@
 ---
-title: 首个个人项目|House Recommender System
+title: Singapore House Recommender System
 date: 2019-11-08
 author: Kevin 吴嘉文
 categories:
@@ -20,8 +20,6 @@ comments: 基于新加坡Airbnb房源，实现通过房屋周边环境，推荐�
 > For instance, Chinese commuter may want to find some house that surrounded by Chinese restaurant if they can not accept other type of food.
 >
 > This system enables user to filter house based on the outside environment.
-
-<!--more-->
 
 ## Data Source
 

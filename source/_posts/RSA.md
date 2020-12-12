@@ -53,8 +53,6 @@ $$
   根据 $\left\{\begin{array}{c}a^{1+k_{9}(n)}=a \bmod p_{1} \\ \ldots \\ a^{1+k_{9}(n)}=a \bmod p_{r}\end{array}\right.$ 且 $n=\prod_{i=1}^{r} p_{i}, \therefore$ 有 $a^{1+k q(n)}=a \bmod$
   综合1和 2，充分性得证。
 
-<!--more-->
-
 ### RSA密码体制
 
 设 $n=p q,$ 其中 $p, q$ 素数，设 $\mathrm{P}=\mathrm{C}=\mathbb{Z}_{n},$ 且定义
@@ -79,7 +77,7 @@ $a^{1+k\phi (n)} \equiv a \bmod n, k = 1, ed 可以表示为 1+k\phi(n)$
 $\left\{\begin{array}{c}n=p q \\ \varphi(\mathrm{n})=(p-1)(q-1)\end{array}\right.$
 $\Rightarrow p^{2}-(n-\varphi(n)+1) p+n=0$ 
 
-
+<!--more-->
 
 ## 相关算法
 
@@ -97,6 +95,8 @@ Bob发送消息给Alice，发送的内容为m
 
 + Bob 使用自己的私钥加密，发送 $$(m,H(m) ^d)$$ 给Alice,Alice 收到 $$(m,s)$$
 + Alice 用Bob的公钥做签名验证: 如果$$H(m)=s^e$$ 接受签名 
+
+
 
 ### Euclid's Algorithm - GCD
 
