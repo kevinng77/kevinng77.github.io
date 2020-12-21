@@ -11,6 +11,7 @@ categories:
 - 理论分析
 tags:
 - Cybersecurity|网络安全
+- En
 mathjax: true
 toc: true
 comments: 基础加密算法分析
