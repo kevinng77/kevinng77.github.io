@@ -7,7 +7,7 @@ categories:
 tags:
 - ML|机器学习
 - python
-- En
+- In English
 mathjax: true
 toc: true
 comments: 基于新加坡Airbnb房源，实现通过房屋周边环境，推荐用户心意的房屋
