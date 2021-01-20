@@ -8,7 +8,7 @@ keywords:
 language: en
 timezone: ''
 categories:
-- 理论分析
+- Notes|理论梳理
 tags:
 - Cybersecurity|网络安全
 - In English
@@ -114,7 +114,7 @@ $$
 
 
 
-
+<!--more-->
 
 **Point Doubling**
 
@@ -217,8 +217,6 @@ e.g.  $$E_{13}(-4，4)，P = (0，11)$$ the order of $$P$$ is 7, $$6P = (0，2)$
 ![order-1607259618094](/img/E2EE_en/order-1607259618094.jpg)
 
 
-
-<!--more-->
 
 ## ECDH 
 

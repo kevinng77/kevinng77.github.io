@@ -3,7 +3,7 @@ title: 加密算法|RSA
 date: 2020-09-10
 author: Kevin 吴嘉文
 categories:
-- 理论分析
+- Notes|理论梳理
 tags:
 - Cybersecurity|网络安全
 mathjax: true
@@ -13,6 +13,8 @@ comments: 基础加密算法分析
 ---
 
 # RSA
+
+> 本文为非对称加密算法RSA定义，数学基础，RSA密码体制基础，相关算法笔记与代码的整理。偏向于教科书内容，现实中的RSA实现仍需要在教科书版的RSA上打补丁升级。
 
 ## 单向函数定义
 
@@ -25,7 +27,7 @@ $$
 + 陷门：大数n的因式分解
   若已知 $$n \theta$$ 的因式分解，即$$n=p q,$$ 则 $$\varphi(n)=(p-1)(q-1)$$ 若 $$\mathrm{gcd}(b, \varphi(n))=1,$$ 且 $$a b \equiv 1 \bmod \varphi(n)$$
   
-  
+  <!--more-->
 
 ## 数学基础
 
@@ -76,8 +78,6 @@ $a^{1+k\phi (n)} \equiv a \bmod n, k = 1, ed 可以表示为 1+k\phi(n)$
 注： $p,q,\varphi(n)$ 需要保密
 $\left\{\begin{array}{c}n=p q \\ \varphi(\mathrm{n})=(p-1)(q-1)\end{array}\right.$
 $\Rightarrow p^{2}-(n-\varphi(n)+1) p+n=0$ 
-
-<!--more-->
 
 ## 相关算法
 

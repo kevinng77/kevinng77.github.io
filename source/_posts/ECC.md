@@ -5,7 +5,7 @@ author: Kevin 吴嘉文
 keywords: 
 language: cn
 categories:
-- 理论分析
+- Notes|理论梳理
 tags:
 - Cybersecurity|网络安全
 mathjax: true

@@ -5,7 +5,7 @@ author: Kevin 吴嘉文
 categories:
 - Project|项目
 tags:
-- ML|机器学习
+- K-MEAN
 - python
 - In English
 mathjax: true
@@ -144,8 +144,17 @@ for lat, lon, poi, cluster in zip(selected_stay['latitude_x'], selected_stay['lo
 map_clusters
 ```
 
-
 ![sg_house](/img/SingaporeHouseRecommender/sg_house.png)
+
+
+
+Interesting result :) The house colored blue are surrounded with many Indian restaurants. As shown in the graph, they are gathering at LITTLE INDIA.
+
+The venue with highest frequency around Red houses is Japanese restaurants, that might due to some Japanese stay there. I personally think Japanese food are consider as a high-class consumption, while expensive Japanese food generates high return, that leads to Japanese restaurant gathering in the business center of Singapore. 
+
+It will be easy to find noodle restaurants around around green houses and Chinese restaurants around orange houses. 
+
+The remain houses are consider as "holiday houses". Each house are expect to have more than 2 swimming or gyms around.
 
 ### Recommend Criteria
 

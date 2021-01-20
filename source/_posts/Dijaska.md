@@ -8,7 +8,7 @@ keywords:
 language: cn
 timezone: ''
 categories:
-- 理论分析
+- Notes|理论梳理
 tags:
 - algorithm|算法
 mathjax: true
