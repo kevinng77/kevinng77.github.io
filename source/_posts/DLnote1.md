@@ -4,9 +4,9 @@ date: 2021-01-12
 author: Kevin 吴嘉文
 categories:
 - Notes|理论梳理
-- In English
 tags:
 - Deep Learning
+- In English
 mathjax: true
 toc: true
 comments: Andrew CS230笔记
