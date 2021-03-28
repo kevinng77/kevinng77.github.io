@@ -5,7 +5,7 @@ author: Kevin 吴嘉文
 categories:
 - Project|项目
 tags:
-- K-MEAN
+- Machine Learning
 - python
 - In English
 mathjax: true
@@ -20,7 +20,9 @@ comments: 基于新加坡Airbnb房源，实现通过房屋周边环境，推荐�
 >
 > For instance, Chinese commuter may want to find some house that surrounded by Chinese restaurant if they can not accept other type of food.
 >
-> This system enables user to filter house based on the outside environment.
+> This system enables user to filter house based on the outside environment. 
+>
+> Refer to [Github](https://github.com/kevinng77/Singapore-House-Explorer) for my code
 
 ## Data Source
 

@@ -25,31 +25,31 @@ comments: Andrew CS230笔记
 
 **Matrix size:** m training examples, n_x features. `Matrix.shape = (n_x,m)`
 
-**Activation function:** $\begin{array}{l}
+**Activation function:** $$\begin{array}{l}
 a=\tanh (z) 
 =\frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}
-\end{array}$, $\tanh' (z) =1-(\tanh(z))^2$
+\end{array}$$, $$\tanh' (z) =1-(\tanh(z))^2$$
 
-**Relu:** $A = RELU(Z) = max(0, Z)$
+**Relu:** $$A = RELU(Z) = max(0, Z)$$
 
-**Logistic regression with sigmoid:** $\hat y = \sigma (w^Tx + b)$  ,when $x_0 = 1, \hat y = \sigma(\theta^Tx)$  
+**Logistic regression with sigmoid:** $$\hat y = \sigma (w^Tx + b)$$  ,when $$x_0 = 1, \hat y = \sigma(\theta^Tx)$$  
 
-**Logistic Regression loss function:** $L(\hat{y}, y)=-(y \log \hat{y}+(1-y) \log (1-\hat{y}))$
+**Logistic Regression loss function:** $$L(\hat{y}, y)=-(y \log \hat{y}+(1-y) \log (1-\hat{y}))$$
 
 **Logistic cost function:** 
 $$
 J(w,b) =  1/m \sum_{i=1} ^m L(\hat {y^i},y^i)\\= -\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right))
 $$
-**Gradient decent:**  $w -= \alpha \frac {d J(w)}{ d (w)}$ 
+**Gradient decent:**  $$w -= \alpha \frac {d J(w)}{ d (w)}$$ 
 
-**partial derivative:** **Do check the relationship of $x_1$ and other parameters.**
+**partial derivative:** **Do check the relationship of $$x_1$$ and other parameters.**
 $$
 \begin{aligned}
 &z=f(x_1, x_2)\\
 &\frac{\partial z}{\partial x_1 }=f_{1}^{\prime} \cdot \frac{\partial x_1}{\partial x_1}+f_{2}^{\prime} \cdot \frac{\partial x_2}{\partial x_1}=f_{1}^{\prime}+ f_{2}^{\prime}\frac{\partial x_2}{\partial x_1}
 \end{aligned}
 $$
-**Chain rule:** $ \frac {dJ}{dv} \frac {dV}{da} = \frac {dJ}{da}$
+**Chain rule:** $$ \frac {dJ}{dv} \frac {dV}{da} = \frac {dJ}{da}$$
 
 **Logistic Derivative (sigmoid):**
 $$
@@ -59,7 +59,7 @@ a = \sigma (z)\\
 \frac {dL(a,y)}{dw_i} = x_i\frac {dL(a,y)}{dz}(when\ i=0,w_i\ is\ b)\\
 \frac{\partial J(w, b)}{\partial w_{1}}=\frac{1}{m} \sum_{i=1}^{m} \frac{\partial}{\partial w_{i}} L\left(a^{(i)}, y^{(i)} \right)
 $$
-**Vectorization:** $z = w^T x$ 
+**Vectorization:** $$z = w^T x$$ 
 
 **Softmax function:**
 
@@ -123,13 +123,13 @@ A1 = A1*D1
 A1 = A1/keep_prob
 ```
 
-**He initialization:** after `np.random.randn(..,..)`, multiply the initialized random value by$\sqrt{\frac{2}{\text{dimension of the previous layer}}}$
+**He initialization:** after `np.random.randn(..,..)`, multiply the initialized random value by$$\sqrt{\frac{2}{\text{dimension of the previous layer}}}$$
 
 **Mini-batch gradient descent:**
 
 + If mini-batch size == 1, noise up, stochastic Gradient Descent. If mini-batch == m, time cost up, batch gradient descent.
 + small training set (m<2000) use batch gradient.
-+ mini-batch size recommend to set as $2^n$ to fit GPU, CPU memory.
++ mini-batch size recommend to set as $$2^n$$ to fit GPU, CPU memory.
 
 **Momentum:** Momentum takes into account the past gradients to smooth out the update. 
 $$
@@ -165,8 +165,8 @@ W^{[l]} = W^{[l]} - \alpha \frac{v^{corrected}_{dW^{[l]}}}{\sqrt{s^{corrected}_{
 $$
 where:
 - t counts the number of steps taken of Adam 
-- $\beta_1$ and $\beta_2$ are hyperparameters that control the two exponentially weighted averages. $\beta_1$ around 0.9, $\beta_2$ around 0.999 
-- $\varepsilon$ is a very small number ($10^{-8}$) to avoid dividing by zero. 
+- $$\beta_1$$ and $$\beta_2$$ are hyperparameters that control the two exponentially weighted averages. $$\beta_1$$ around 0.9, $$\beta_2$$ around 0.999 
+- $$\varepsilon$$ is a very small number ($$10^{-8}$$) to avoid dividing by zero. 
 
 **Gradient Checking:**
 $$
@@ -174,9 +174,9 @@ $$
 $$
 **Learning rate decay:**
 
-Learning rate $\alpha = \frac {\alpha_0}{1+decay\_rate\ *\ epoch\_num}$ or $\alpha = 0.95 ^{epoch\ num} * \alpha_0$ or $\alpha = \frac k{\sqrt {epoch\ num}} * \alpha_0$ or manual decay
+Learning rate $$\alpha = \frac {\alpha_0}{1+decay\_rate\ *\ epoch\_num}$$ or $$\alpha = 0.95 ^{epoch\ num} * \alpha_0$$ or $$\alpha = \frac k{\sqrt {epoch\ num}} * \alpha_0$$ or manual decay
 
-Tuning process: 1. $\alpha$ 2. $\beta, \beta_1, \beta_2$, \#layers, mini batch size 3. ​# layers, learning rate decay. Do not use grid, choose random number
+Tuning process: 1. $$\alpha$$ 2. $$\beta, \beta_1, \beta_2$$, \#layers, mini batch size 3. ​# layers, learning rate decay. Do not use grid, choose random number
 
 **Error Analysis:**
 
@@ -211,11 +211,17 @@ p = \frac {f-1}2\\
 f\ usually\ odd
 $$
 
-+ valid convolution: no padding. input size $n * n$, filter size $f*f$, output size $n-f+1$
++ valid convolution: no padding. input size $$n * n$$, filter size $$f*f$$, output size $$n-f+1$$
 
-**stride convolutions:** for stride = 2, output size is $\lfloor\frac{n+2 p-f}{s}+1 \rfloor * \lfloor\frac{n+2 p-f}{s}+1 \rfloor$
+**stride convolutions:** for stride = 2, output size is 
 
-**multiple filters:**
+
+$$
+\lfloor\frac{n+2 p-f}{s}+1 \rfloor * \lfloor\frac{n+2 p-f}{s}+1 \rfloor
+
+$$
+
+**multiple filters:** 
 
 <img src="/img/DLnote1/image-20210111200805924.png" alt="image-20210111200805924" style="zoom:67%;" />
 
@@ -254,9 +260,9 @@ def conv_forward(A_prev, W, b, stride, pad):
 
 **Convolutional NN backpropagation:**
 
-$dA += \sum _{h=0} ^{n_H} \sum_{w=0} ^{n_W} W_c \times dZ_{hw}$
+$$dA += \sum _{h=0} ^{n_H} \sum_{w=0} ^{n_W} W_c \times dZ_{hw}$$
 
-$dW_c  += \sum _{h=0} ^{n_H} \sum_{w=0} ^ {n_W} a_{slice} \times dZ_{hw}$
+$$dW_c  += \sum _{h=0} ^{n_H} \sum_{w=0} ^ {n_W} a_{slice} \times dZ_{hw}$$
 
 $$ db = \sum_h \sum_w dZ_{hw}$$
 
@@ -272,19 +278,29 @@ Notation:
 
 **LeNet-5** (activation: sigmoid or tanh)
 
-$(32,32,3)  \rightarrow [5,1]\rightarrow (28,28,6)\rightarrow maxpool[2,2] $  $\rightarrow (14,14,6) \rightarrow [5,1] \rightarrow(10,10,10)\rightarrow maxpool[2,2] $ $\rightarrow (5,5,16) \rightarrow flatten \rightarrow 400\rightarrow FC3:120 $ $\rightarrow FC4:84 \rightarrow 10,softmax \rightarrow output$
+$$(32,32,3)  \rightarrow [5,1]\rightarrow (28,28,6)\rightarrow maxpool[2,2] $$
+
+ $$\rightarrow (14,14,6) \rightarrow [5,1] \rightarrow(10,10,10)\rightarrow maxpool[2,2] $$ 
+
+ $$\rightarrow (5,5,16) \rightarrow flatten \rightarrow 400\rightarrow FC3:120 $$
+
+ $$\rightarrow FC4:84 \rightarrow 10,softmax \rightarrow output$$ 
 
 <img src="/img/DLnote1/image-20210111203742104.png" alt="image-20210111203742104" style="zoom:60%;" />
 
 **AlexNet** (Relu)
 
-$(227,227,3)  \rightarrow [11,4]\rightarrow (55,55,96)\rightarrow maxpool[3,2] $  $\rightarrow (27,27,96) \rightarrow same[5,1] \rightarrow(27,27,256)\rightarrow maxpool[3,2] $ $\rightarrow (13,13,256) \rightarrow same[3,1] \rightarrow (13,13,384) \rightarrow same[3,1]$
+$$(227,227,3)  \rightarrow [11,4]\rightarrow (55,55,96)\rightarrow maxpool[3,2] $$  
 
-$\rightarrow (13,13,384) \rightarrow same[3,1]\rightarrow(13,13,256) \rightarrow maxpool[3,2]$
+$$\rightarrow (27,27,96) \rightarrow same[5,1] \rightarrow(27,27,256)\rightarrow maxpool[3,2] $$ 
 
-$\rightarrow (6,6,256) \rightarrow flatten \rightarrow 9216 \rightarrow FC:4096$
+$$\rightarrow (13,13,256) \rightarrow same[3,1] \rightarrow (13,13,384) \rightarrow same[3,1]$$
 
-$ \rightarrow FC:4096\rightarrow softmax $ 
+$$\rightarrow (13,13,384) \rightarrow same[3,1]\rightarrow(13,13,256) \rightarrow maxpool[3,2]$$
+
+$$\rightarrow (6,6,256) \rightarrow flatten \rightarrow 9216 \rightarrow FC:4096$$
+
+$$ \rightarrow FC:4096\rightarrow softmax $$ 
 
 **VGG-16** ([source code here](https://github.com/tensorflow/tensorflow/blob/v2.4.0/tensorflow/python/keras/applications/vgg16.py#L45-L226))
 
@@ -308,7 +324,7 @@ $ \rightarrow FC:4096\rightarrow softmax $
 
 ### YOLO
 
-**bounding box:**  $b_x,b_y,b_h,b_w$ : middle point,height, width
+**bounding box:**  $$b_x,b_y,b_h,b_w$$ : middle point,height, width
 
 **Anchor boxes**: same box overlap objects
 
@@ -323,7 +339,7 @@ $ \rightarrow FC:4096\rightarrow softmax $
 
 ### Face recognition
 
-Make sure Anchor image is closer to Positive image then to Negative image by at least a margin $\alpha$. 
+Make sure Anchor image is closer to Positive image then to Negative image by at least a margin $$\alpha$$. 
 
 $$\mid \mid f(A^{(i)}) - f(P^{(i)}) \mid \mid_2^2 + \alpha < \mid \mid f(A^{(i)}) - f(N^{(i)}) \mid \mid_2^2$$
 
@@ -333,9 +349,9 @@ $$\mathcal{J} = \sum^{m}_{i=1} \large[ \small \underbrace{\mid \mid f(A^{(i)}) -
 
 ### Neural Style transfer
 
- $a^{(C)}$ : the hidden layer activations in the layer after running content image C in network.
+Notation: $$a^{(C)}$$ : the hidden layer activations in the layer after running content image C in network.
 
- $a^{(G)}$ : the hidden layer activations in the layer after running generated image G in network.
+Notation: $$a^{(G)}$$ : the hidden layer activations in the layer after running generated image G in network.
 
 $$J_{content}(C,G) =  \frac{1}{4 \times n_H \times n_W \times n_C}\sum _{ \text{all entries}} (a^{(C)} - a^{(G)})^2 $$
 
@@ -344,15 +360,15 @@ $$J_{content}(C,G) =  \frac{1}{4 \times n_H \times n_W \times n_C}\sum _{ \text{
 
 **Gram matrix**
 
-$$\mathbf{G}_{gram} = \mathbf{A}_{unrolled} \mathbf{A}_{unrolled}^T$$
+Notation: $$\mathbf{G}_{gram} = \mathbf{A}_{unrolled} \mathbf{A}_{unrolled}^T$$ 
 
-$G_{(gram)i,j}$: correlation of activations of filter i and j
+Notation: $$G_{(gram)i,j}$$ : correlation of activations of filter i and j
 
-$G_{(gram),i,i}$: prevalence of patterns or textures
+Notation: $$G_{(gram),i,i}$$ : prevalence of patterns or textures
 
-* The diagonal elements $G_{(gram)ii}$ measure how "active" a filter $i$ is. 
-* For example, suppose filter $i$ is detecting vertical textures in the image. Then $G_{(gram)ii}$ measures how common  vertical textures are in the image as a whole.
-* If $G_{(gram)ii}$ is large, this means that the image has a lot of vertical texture. 
+* The diagonal elements $$G_{(gram)ii}$$ measure how "active" a filter $$i$$ is. 
+* For example, suppose filter $$i$$ is detecting vertical textures in the image. Then $$G_{(gram)ii}$$ measures how common  vertical textures are in the image as a whole.
+* If $$G_{(gram)ii}$$ is large, this means that the image has a lot of vertical texture. 
 
 **Style cost:** $$J_{style}^{[l]}(S,G) = \frac{1}{4 \times {n_C}^2 \times (n_H \times n_W)^2} \sum _{i=1}^{n_C}\sum_{j=1}^{n_C}(G^{(S)}_{(gram)i,j} - G^{(G)}_{(gram)i,j})^2 $$
 
@@ -367,8 +383,8 @@ HINTS:
 
 **Total cost to optimize:** $$J(G) = \alpha J_{content}(C,G) + \beta J_{style}(S,G)$$
 
-- The total cost is a linear combination of the content cost $J_{content}(C,G)$ and the style cost $J_{style}(S,G)$.
-- $\alpha$ and $\beta$ are hyperparameters that control the relative weighting between content and style.
+- The total cost is a linear combination of the content cost $$J_{content}(C,G)$$ and the style cost $$J_{style}(S,G)$$.
+- $$\alpha$$ and $$\beta$$ are hyperparameters that control the relative weighting between content and style.
 
 ## RNN
 
@@ -426,12 +442,12 @@ concatenate hidden state and input into single matrix: $$concat = \begin{bmatrix
 
 **Backpropagation** 
 
-Notation: $\Gamma_u^{\langle t \rangle} $ is same as $\Gamma_i^{\langle t \rangle} $ in previous discussion.
+Notation: $$\Gamma_u^{\langle t \rangle} $$ is same as $$\Gamma_i^{\langle t \rangle} $$ in previous discussion.
 $$
 \displaystyle \frac{\partial \tanh(x)} {\partial x} = 1 - \tanh^2(x) \\
 \displaystyle \frac{\partial \sigma(x)} {\partial x} = (1-\sigma(x)) * \sigma (x)
 $$
-in the following, $\gamma_o^{\langle t \rangle}  = 𝐖_𝑜[𝐚^{⟨𝑡−1⟩},𝐱^{⟨𝑡⟩}]+𝐛_𝑜$. Same for $\gamma_u^{\langle t \rangle}, \gamma_f^{\langle t \rangle}  $ 
+in the following, $$\gamma_o^{\langle t \rangle}  = 𝐖_𝑜[𝐚^{⟨𝑡−1⟩},𝐱^{⟨𝑡⟩}]+𝐛_𝑜$$. Same for $$\gamma_u^{\langle t \rangle}, \gamma_f^{\langle t \rangle}  $$ 
 $$
 d\gamma_o^{\langle t \rangle} = da_{next}*\tanh(c_{next}) * \Gamma_o^{\langle t \rangle}*\left(1-\Gamma_o^{\langle t \rangle}\right)\\
 dp\widetilde{c}^{\langle t \rangle} = \left(dc_{next}*\Gamma_u^{\langle t \rangle}+ \Gamma_o^{\langle t \rangle}* (1-\tanh^2(c_{next})) * \Gamma_u^{\langle t \rangle} * da_{next} \right) * \left(1-\left(\widetilde c^{\langle t \rangle}\right)^2\right)\\
@@ -451,14 +467,7 @@ da_{prev} = W_f^T d\gamma_f^{\langle t \rangle} + W_u^T   d\gamma_u^{\langle t \
  dx^{\langle t \rangle} = W_f^T d\gamma_f^{\langle t \rangle} + W_u^T  d\gamma_u^{\langle t \rangle}+ W_c^T dp\widetilde c^{\langle t \rangle} + W_o^T d\gamma_o^{\langle t \rangle}
 $$
 
-Parameter source hints for partial derivative:
-
-+  $𝚪^{⟨𝑡⟩}_𝑜$ : $ \mathbf{a}^{\langle t \rangle}$
-+  $𝚪^{⟨𝑡⟩}_u$  and $𝚪^{⟨𝑡⟩}_f$: $ \mathbf{c}^{\langle t \rangle}$
-+ $\mathbf{\tilde{c}}^{\langle t \rangle}$  :  $ \mathbf{c}^{\langle t \rangle}$ 
-+ $ \mathbf{c}^{\langle t \rangle}$: $ \mathbf{c}^{\langle t+1 \rangle} ,  \mathbf{a}^{\langle t \rangle}$ 
-
-+  $\frac{\partial J} {\partial c^{<t>}}$ 
+Parameter source hints for partial derivative: $$𝚪^{⟨𝑡⟩}_𝑜$$ : $$\mathbf{a}^{\langle t \rangle}$$ , $$𝚪^{⟨𝑡⟩}_u$$  and $$𝚪^{⟨𝑡⟩}_f$$: $$ \mathbf{c}^{\langle t \rangle}$$, $$\mathbf{\tilde{c}}^{\langle t \rangle}$$  :  $$ \mathbf{c}^{\langle t \rangle}$$ , $$ \mathbf{c}^{\langle t \rangle}$$: $$ \mathbf{c}^{\langle t+1 \rangle} ,  \mathbf{a}^{\langle t \rangle}$$ , $$\frac{\partial J} {\partial c^{<t>}}$$ 
 
 <img src="/img/DLnote1/image-20210112164700985.png" alt="image-20210112164700985" style="zoom:60%;" />
 
@@ -466,7 +475,7 @@ Parameter source hints for partial derivative:
 
 ### Word2Vec
 
-Cosine similarity: $\text{CosineSimilarity(u, v)} = \frac {u \cdot v} {||u||_2 ||v||_2} = cos(\theta)$
+Cosine similarity: $$\text{CosineSimilarity(u, v)} = \frac {u \cdot v} {||u||_2 ||v||_2} = cos(\theta)$$
 
 **Debiasing word vectors:** 
 

@@ -1,11 +1,12 @@
 ---
 title: AI 基础回忆
-date: 2021-02-17
+date: 2020-06-17
 author: Kevin 吴嘉文
 categories:
 - Notes|理论梳理
 tags:
 - 随笔
+- Machine Learning
 mathjax: true
 toc: true
 comments: 基础加密算法分析
@@ -222,13 +223,13 @@ answer
 
 上面这些步骤就是一个Machine learning模型，运行上面这个函数，你就相当于运行了。
 
-**不过需要提醒的是！！！！** sklearn 库中的model 能够实现比上面函数更好的效果，上面函数不论是对常数项 $b$ 的处理，$w$ 初始值的处理等都做的非常粗糙，函数简陋，意在使读者能够对ML有一个大致的清晰的理解。
-
 ```
 from sklearn import LinearRegression
 m = linear_model.LinearRegression()
 m.fit(x,y)
 ```
+
+**不过需要提醒的是！！！！** sklearn 库中的model 能够实现比上面函数更好的效果，上面函数不论是对常数项 $b$ 的处理，$w$ 初始值的处理等都做的非常粗糙，函数简陋，意在使读者能够对ML有一个大致的清晰的理解。
 
 让我们来看看结果，打印 `np.dot(x,w.T)` 来输出我们的预测结果。能看到我们的预测结果和我们的训练集 `y`很相近了。
 
@@ -256,8 +257,8 @@ array([[ 4.05543213],
 
 + 选择 objective function
 + 建立模型   $y = x_1w_1 + x_2w_2 + x_3w_3 + b$
-+ 计算偏导
-+ 调整 learning rate $\alpha$
++ 选择一个优化方案，如果是gradient descent，我们就计算偏导
++ 调整 hyper parameters，我们这边只有 learning rate $\alpha$
 
 最后我们找到了一个想要的解。
 
@@ -267,6 +268,8 @@ array([[ 4.05543213],
 + 更换模型为CNN 框架
 + 根据CNN框架计算每一个Node的w的偏导
 + 调整 hyper parameters 使得模型能够达到最好的训练效果
+
+最后我们一样的把 x_train 和 y_train 放入到模型中让模型自己学习，我们就可以得到一个较为优化的结果了。
 
 除了CNN，RNN也是如此。因此也希望某些同学在面对完全陌生的AI时，喝口奶茶冷静一下。也许你并没有那么怕它。
 

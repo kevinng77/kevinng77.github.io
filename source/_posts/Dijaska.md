@@ -147,11 +147,17 @@ for u in vertex:  ## 对所有点都进行了一次Dijkstra
 
 所以上面这种方法，时间复杂度为：$$O(V lgV + E lgV + EV)$$ ，当然我们可以对他进行优化，在用字典的方式记录每个v在heap中的位置以节省relax前搜索字典位置的时间，用Fibonacci Heap 来优化每次relax中修改heap值的时间，最终时间复杂度可以提高为： $$O(V lgV + E)$$ 
 
-## 异想天开的应用
+## 特殊想法
 
-#### 逃离病毒计划 
+考虑以下的这些特点，我给出几个应用Dijkstra的要点如下：
 
-(修改自SMU CS602 Assignment，引用请注明)
++ 虽说Dijkstra为单点对端路径优化(single source)的方案，他计算了一个点到其他所有点的最短路径。然而当你的最终目的地有多个可选项时可以却可以采用Dijkstra，只需要反向计算，从目的地出发计算每个城市到目的地的最短路径。本案例中讲所有的最终目的地点当成一个整体来计算，使得这个问题从一个多点出发最短路径问题，变成了单点出发最短路径问题。
+
+  总结关键词：**反向计算路径**，**节点合并**
+
++ Dijkstra虽然快，但是局限性也大，排序要求使得他不能够再分布式系统中计算，所以相对的应用没有其他一些最短路径算法那么多，如Bellman
+
+以下的情景概述也许可以帮助理解：
 
 新冠来袭而你依旧深处国外，担心安危的你下定决心要用最短的时间回到中国。然而当你打开某机票网站却发现一张直达机票都没有了，现在唯一可行的方案就是从别的地方转机：
 
@@ -184,77 +190,7 @@ target_city_list = [3,1]
 
 
 
-基于这个例题，我给出几个应用Dijkstra的要点如下：
 
-+ 虽说Dijkstra为单点对端路径优化(single source)的方案，他计算了一个点到其他所有点的最短路径。然而当你的最终目的地有多个可选项时可以却可以采用Dijkstra，只需要反向计算，从目的地出发计算每个城市到目的地的最短路径。本案例中讲所有的最终目的地点当成一个整体来计算，使得这个问题从一个多点出发最短路径问题，变成了单点出发最短路径问题。
-
-  总结关键词：**反向计算路径**，**节点合并**
-
-+ Dijkstra虽然快，但是局限性也大，排序要求使得他不能够再分布式系统中计算，所以相对的应用没有其他一些最短路径算法那么多，如Bellman
-
-最后为本案例一个较为优化的算法：
-
-
-```python
-import math
-import heapq
-
-def come_back_soon(n, adjlist, qrtn, target_city_list):
-    city_days = [math.inf for _ in range(n+1)]
-    heap = []
-    dist = [[math.inf for _ in range(n+1)],[math.inf for _ in range(n+1)],[math.inf for _ in range(n+1)]]
-    for u in target_city_list:
-        heapq.heappush(heap, [0, u, 0])
-    count = 0
-
-    while count < n:
-        mindist, v, Arrive_code = heapq.heappop(heap)
-        if dist[Arrive_code][v] == math.inf:
-            if Arrive_code == 0:
-                count += 1
-                city_days[v] = mindist
-                dist[0][v] = mindist
-                R2O, O2G = qrtn[v]
-                for i, w in adjlist[v]:
-
-                    if w > 0:
-                        if mindist + w < dist[0][i]:
-                            heapq.heappush(heap, [mindist + w, i, 0])
-                heapq.heappush(heap, [mindist + O2G, v, 1])
-
-            elif Arrive_code == 1:
-                dist[1][v] = mindist
-                R2O, O2G = qrtn[v]
-
-                for i, w in adjlist[v]:
-                    if w < 0:
-                        if mindist - w < dist[0][i]:
-                            heapq.heappush(heap, [mindist - w, i, 0])
-                    else:
-                        if mindist + w < dist[1][i]:
-                            heapq.heappush(heap, [mindist + w, i, 1])
-                heapq.heappush(heap, [mindist + R2O, v, 2])
-
-            else:
-                dist[2][v] = mindist
-                for i, w in adjlist[v]:
-                    if dist[1][i] == math.inf:
-                        if w < 0:
-                            if mindist - w < dist[1][i]:
-                                heapq.heappush(heap, [mindist - w, i, 1])
-    return city_days[1:]
-    
-if __name__ == "__main__":
-    n = len(qrtn)
-	roadmap = [[] for i in range(n + 1)]
-	s = roadmap_raw.split()
-    for t in s:
-        u = t.split(':')
-        roadmap[int(u[0])].append((int(u[1]), int(u[2])))
-        roadmap[int(u[1])].append((int(u[0]), int(u[2])))
-        
-    come_back_soon(n, roadmap, qrtn, target_city_list)
-```
 
 
 
