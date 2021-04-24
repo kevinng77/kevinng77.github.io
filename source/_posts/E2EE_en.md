@@ -23,8 +23,6 @@ comments: 基础加密算法分析
 >
 > This article describe how WhatsApp end-to-end Encryption work. Personally, the key of E2EE is ECDH, in the article ECC, DH and CURVE 25519 are also introduced
 
-
-
 ## Diffie-Hellman 
 
 DH is one of the method that can generate a shared secret for 2 users, the following picture describes the process:
