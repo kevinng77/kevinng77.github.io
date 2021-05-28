@@ -109,7 +109,7 @@ MQTT由IBM公司开发的，90年代的产物，IBM为了解决是由公司管�
 
 先尝试是否可以直接动过 `apt-get install`安装
 
-```shell
+```sh
 sudo apt-add-repository ppa:mosquitto-dev/mosquitto-ppa
 sudo apt-get update
 sudo apt-get install mosquitto -y
@@ -118,7 +118,7 @@ sudo apt-get install mosquitto-clients
 
 若遇到`apt-add command not found`
 
-```shell
+```sh
 sudo apt-get install python-software-properties
 sudo apt-get update
 sudo apt install software-properties-common 
@@ -379,6 +379,61 @@ time.sleep(2)
 ## Web 服务器搭建
 
 本项目使用的是BOA服务器，具体的搭建教程网上很丰富，这边不展开讨论。
+
+下载源码 http://www.boa.org/
+
+创建相关文件路径
+
+```sh
+mkdir /home/kevin/share/myboa
+cd myboa
+mkdir boa
+mkdir log
+mkdir www
+mkdir www/cgi-bin
+```
+
+安装 `sudo apt-get install bison sudo apt-get install flex`
+
+解压 `tar -xzf boa-0.94.13.tar.gz`
+
+进入 `cd src ./configure` 配置文件
+
+修改defines.h 30行左右的 服务器根路径为`boa.conf`存放的路径
+
+`#define SERVER_ROOT "/home/linux/share/myboa/boa"`
+
+注释掉 boa.c 226行左右的 
+
+`if (setuid(0) != -1) {DIE("icky Linux kernel bug!");}`
+
+修改compat.h  120 行左右的 `#define TIMEZONE_OFFSET(foo) foo##->tm_gmtoff` 为：
+
+`#define TIMEZONE_OFFSET(foo) (foo)->tm_gmtoff`
+
+编译 make
+
+将boa-0.94.13/src 目录下生成的两个二进制文件复制到指定的boa 目录下
+`cp boa /home/kevin/share/myboa/boa`
+`cp boa_indexer/home/kevin/share/myboa/boa`
+(2)将boa-0.94.13 目录下的boa.conf 复制到指定的boa 目录下
+`cp boa.conf /home/kevin/share/myboa/boa`
+
+创建 log文件
+
+`touch /home/kevin/share/myboa/log/error_log`
+`touch /home/kevin/share/myboa/log/access_log`
+
+配置 boa.conf 里面的内容 `cd /home/kevin/share/myboa/boa vi boa.conf`
+
+```c
+User 0 Group 0
+ErrorLog /home/kevin/share/myboa/log/error_log
+AccessLog /home/kevin/share/myboa/log/access_log
+DocumentRoot /home/kevin/share/myboa/www
+DirectoryMaker /home/kevin/share/myboa/boa/boa_indexer
+ScriptAlias /cgi-bin/ /home/kevin/share/myboa/www/cgi-bin/
+```
 
 ### web设计
 
