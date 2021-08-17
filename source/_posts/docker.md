@@ -446,6 +446,27 @@ docker push kevin/mytomcat:0.1
 
 代补充
 
+### docker 其他问题
+
+jupyter notebook再使用的时候需要配置：
+
+```python
+jupyter notebook --generate-config
+
+#docker中使用ipython生成密码
+In [1]: from notebook.auth import passwd
+In [2]: passwd()
+Enter password:  # 这个密码再后来宿主机登陆时候需要
+Verify password:   # 宿主机登陆localhost:8888
+Out[2]: 'sha1:38a5ecdf288b:c82dace8d3c7a212ec0bd49bbb99c9af3bae076e'
+
+#去配置文件.jupyter/jupyter_notebook_config.py中修改以下参数
+c.NotebookApp.ip='*'                          #绑定所有地址
+c.NotebookApp.password = u'刚才生成的密码'
+c.NotebookApp.open_browser = False            #启动后是否在浏览器中自动打开
+c.NotebookApp.port =8888  
+```
+
 ## 其他参考
 
 https://blog.csdn.net/xiaozecheng/article/details/106145593

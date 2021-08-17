@@ -17,6 +17,8 @@ comments:
 
 > Basic theory and coding on sklearn for logistic regression
 
+<!--more-->
+
 ### The design of binary classification
 
 We define the function of odds and using exponential function to model the odds:
