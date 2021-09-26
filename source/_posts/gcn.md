@@ -244,7 +244,7 @@ adj = sp.coo_matrix((np.ones(edges.shape[0]), (edges[:, 0], edges[:, 1])),
                     dtype=np.float32)
 ```
 
-得到邻接矩阵 $$A$$ 后需要处理成 $$\hat A$$​ :
+得到邻接矩阵 $$A$$ 后，**将有向图转变为无向图，保留权重最大的边**。而后再处理成 $$\hat A$$​ :
 
 ```python
 adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
