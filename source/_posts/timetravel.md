@@ -7,7 +7,7 @@ keywords:
 language: cn
 timezone: ''
 categories:
-- Hobbies业余爱好
+- 关于我
 tags:
 - Guitar吉他
 mathjax: False

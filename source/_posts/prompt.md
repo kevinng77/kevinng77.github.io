@@ -6,7 +6,7 @@ categories:
 - Notes|理论梳理
 tags:
 - NLP
-- Prompt
+- 论文笔记
 mathjax: true
 toc: true
 comments: 笔记
@@ -180,13 +180,19 @@ $$
 
 P-Tuning 采用的也是参数化的Prompt，先来看他与Discrete Prompt的区别：
 
-假设原输入为：$$T=\left\{\left[\mathrm{P}_{0: i}\right], \mathbf{x},\left[\mathrm{P}_{i+1: m}\right], \mathbf{y}\right\}$$ 。Discrete Prompt使用PLM的embedding层 $$e(.)$$ 将原输入编码成 $$\left\{\mathbf{e}\left(\left[\mathrm{P}_{0: i}\right]\right), \mathbf{e}(\mathbf{x}), \mathbf{e}\left(\left[\mathrm{P}_{i+1: m}\right]\right), \mathbf{e}(\mathbf{y})\right\}$$， 此处的每个P对应一个token，如（a）所示；而P-Tuning则使用可学习的参数替代，将原输入编码为 $$\left\{h_{0}, \ldots, h_{i}, \mathbf{e}(\mathbf{x}), h_{i+1}, \ldots, h_{m}, \mathbf{e}(\mathbf{y})\right\}$$ ，**此处P为pseudo token，并没有实际指向的token。**(prompt重要的是放在哪，和能不能引导模型解决任务，而非表现形式。)
+假设原输入为：$$T=\left\{\left[\mathrm{P}_{0: i}\right], \mathbf{x},\left[\mathrm{P}_{i+1: m}\right], \mathbf{y}\right\}$$ 。
+
+Discrete Prompt使用PLM的embedding层 $$e(.)$$ 将原输入编码成 $$\left\{\mathbf{e}\left(\left[\mathrm{P}_{0: i}\right]\right), \mathbf{e}(\mathbf{x}), \mathbf{e}\left(\left[\mathrm{P}_{i+1: m}\right]\right), \mathbf{e}(\mathbf{y})\right\}$$， 此处的每个P对应一个token，如（a）所示；
+
+而P-Tuning则使用可学习的参数替代，将原输入编码为 $$\left\{h_{0}, \ldots, h_{i}, \mathbf{e}(\mathbf{x}), h_{i+1}, \ldots, h_{m}, \mathbf{e}(\mathbf{y})\right\}$$ ，**此处P为pseudo token，并没有实际指向的token。**（prompt重要的是放在哪，和能不能引导模型解决任务，而非表现形式。）对于LM模型，将prompt token置于前缀是很重要的。
+
+与prefix-tuning不同的是，此处prompt的编码将与其他embedding一起传入预训练模型中进行训练。
 
 #### P-tuning 的设计
 
 为了使得prompt的编码之间存在相关性，并解决embedding 分布离散 （Discreteness）的问题（PLM中的embedding高度离散导致使用SGD会很容易陷入局部最优），作者使用BiLSTM计算prompt的hidden state。
 
-根据[网友的咨询与解析](https://zhuanlan.zhihu.com/p/364141928) 论文作者认为此处一种更自然的做法对下游任务目标与其他任务（如LM或者MLM）一起优化，类似PET的优化方案。
+根据[网友的咨询与解析](https://zhuanlan.zhihu.com/p/364141928) 论文作者认为此处一种更自然的做法**对下游任务目标与其他任务（如LM或者MLM）一起优化**，类似PET的优化方案。
 
 此外作者还发现加入一下小标志符号有助于NLU，如“[PRE]\[prompt tokens][HYP]?[prompt tokens]\[MASK]”中的问号。
 
@@ -200,8 +206,12 @@ P-Tuning 采用的也是参数化的Prompt，先来看他与Discrete Prompt的�
 
 几个关注点：
 
-+ 当标注数据较少的时候，我们只学习新添加模版的权重，冻结原PLM的权重；当标注数据充足时，对所有权重进行微调（有点类似经典的bert微调，但是这种形式效果更好点。）
-+ 在标注数据比较少的时候，人工来选定适当的目标token效果往往更好些；在标注数据很充足的情况下，目标token用[unused*]效果更好些，因为这时候模型的优化空间更大一些。
++ 当标注数据较少的时候，我们只学习新添加模版的权重，**冻结原PLM的权重**；当标注数据充足时，对所有权重进行微调（有点类似经典的bert微调，但是这种形式效果更好点。）
++ 由于冻结了大部分的权重，因此在算理有限情况下，我们一定程度上可以使用规模更大的模型了。
+
+同时网友也对中文进行了P-Tuning的实验 [代码](https://github.com/bojone/P-tuning) 
+
+
 
 
 
