@@ -11,8 +11,6 @@ toc: true
 comments: 笔记
 ---
 
-## 代码自动化规范工具 - pre-commit
-
 > 本文对代码自动化规范工具 -  pre-commit 进行了主要流程介绍，大部分内容为 [官网详细文档](https://pre-commit.com/)  的中文翻译，总结与拓展。
 >
 > 相关链接：[hook指南](https://pre-commit.com/hooks.html)

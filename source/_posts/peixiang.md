@@ -1,6 +1,6 @@
 ---
-title: 裴巷|裴道人坐化成仙
-date: 2021-11-25
+title: 忆往昔|裴巷
+date: 2021-08-25
 author: Kevin 吴嘉文
 description: ''
 keywords: 
@@ -14,9 +14,7 @@ mathjax: False
 toc: true
 ---
 
-# 裴巷
-
-![image-20211125165133535](/img/peixiang/image-20211125165133535.png)
+<img src="/img/peixiang/image-20211125165133535.png" alt="image-20211125165133535.png" style="zoom:60%;" />
 
 *（图片来源：泉州网）*
 

@@ -12,8 +12,6 @@ toc: true
 comments: 笔记
 ---
 
-## 蒸馏
-
 > 主要参考了 [BERT蒸馏完全指南｜原理/技巧/代码](https://mp.weixin.qq.com/s/tKfHq49heakvjM0EVQPgHw) 一文，其中对部分论文的笔记有些抽象，因此遍对提及的蒸馏论文进行了阅读与笔记补充总结。同时总结了 textbrewer 相关使用说明。先来对所有介绍到的模型做个总结：
 >
 > [Distilled BiLSTM](#distilled-bilstm) - 将BERT LARGE蒸馏到了BiLSTM上，采用MST目标函数与数据增强。

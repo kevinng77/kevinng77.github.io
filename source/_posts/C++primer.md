@@ -1,5 +1,5 @@
 ---
-title: 嵌入式学习之（四）|C++
+title: 嵌入式学习之（四）|C++ primer
 date: 2020-10-13
 author: Kevin 吴嘉文
 keywords: 
@@ -110,9 +110,24 @@ comments:
 + `string str("string"); for (auto c:str){ cout <<c<<endl;}`
 
 + `string str("string"); for (auto &c:str){ c = toupper(c);} cout << str<<endl;`  善用引用改变原string
+
 + `const string s = "keep out"; for (auto &c :s){}` 其中不能通过c改变s。
+
 + string 比使用C中的字符串运算`strcpy(),strcat(),strcat()` 
+
 + `const char *str = s.c_str();` 用string 的c_str函数来初始化，最好做一份该数组的拷贝，如果程序需要一直用这个C风格的字符串
+
++ 与数字转换：
+
+
+```c++
+#include<cstdlib>
+#include<string>
+std::to_string(digit)
+std::stoi() //stol对long，stoll - longlong
+```
+
++ 切片操作：`string.substr(bed, end)`
 
 ### 容器
 
@@ -122,6 +137,7 @@ comments:
 + 使用 [] 超出范围时，编译器不会发现
 + `vector<string> ivec( 10 );` 和 `vector<string> ivec{10};` 输出一样
 + `for (auto &c : ivec) ` 
++ ​        `auto result = max_element(nums.begin(), nums.end()-k+1);`  返回 result 为地址 `vector (result,result+k);`
 
 ### 迭代器
 
@@ -157,6 +173,31 @@ comments:
 
 + `int ia[] = {0,1,2,3}; auto ia2(ia);` ia2 是整形指针
 + 指针也可以作为迭代器使用，如 `int *beg = begin(ia)` `int last = end(ia)`
+
+### 其他
+
+```c++
+typedef pair<int, vector<int>> pp;
+pp p1; // 可赋值 pp.first=1, pp.second 调用
+
+priority_queue<pp, vector<pp>, greater<pp> > store; //升序队列 #include <queue> 
+// .top() 访问头元素。 .pop() 头元素 .push(xx) 
+
+while (store.empty()){}
+
+```
+
+hash集合
+
+```c++
+#include <unordered_set>
+unordered_set<int> hashset;
+hashset.insert(11);
+hashset.erase(11);
+hashset.count(11); // 判断是否在集合中，否返回-1；
+```
+
+
 
 ## 第四章
 
@@ -460,14 +501,26 @@ int main(){
 ## 第 十一 章 关联容器
 
 + `map<string, size_t> word_count = {{"a",1},{"b",1}}; word_count.insert({word,1}); word_count["c"] = 1`
+
++ `word_count.find()` 返回迭代器指向当前查找元素的位置否则返回map::end()位置
+
+  ```
+  it = myMap.find(key);
+  if(it != myMap.end())
+    { string valueStr = it->second;}
+  ```
+
+  
+
 + `pair<T1,T2> p;`
+
 + `set<int> s = {....}; s.find(), .count()`set 的迭代器是const的。
+
 + 利用无序容器的优势`unorderd_map`
 
 ## 第 十二 章 动态内存
 
 + `shared_ptr<int> p3 = make_shared<int>(42); `只要有对象引用shared_ptr，他就不会被销毁。
-
 + new 完 delete
 + `shared_ptr<int> p2(new int(1024));` 
 + `unique_ptr<int> p(new int(42))` unique不支持拷贝和赋值，可以通过reset和release来将指针的所有权从一个非const unique_ptr 转向另一个 unique。可以拷贝或赋值一个将要被销毁的unique，如从函数返回一个unique。
@@ -477,6 +530,7 @@ int main(){
 + 不使用get 初始化 智能指针
 + 使用智能指针管理的不是new分配的内存，记得给他传递一个删除器。
 + weak_ptr 需要 shared_ptr 来初始化。
++ `ListNode* dummyHead = new ListNode(0);`
 
 ### 动态数组
 
@@ -662,3 +716,18 @@ BlobPtr<T> BlobPtr<T>::operator++(int){
 };
 ```
 
+## 其他
+
+rand()会返回一随机数值, 范围在0至RAND_MAX 间。RAND_MAX定义在stdlib.h, 其值为2147483647
+
+```c++
+int pos = rand()%(r-l)+l;  // r - l 之间的随机整数
+```
+
+[quicksort 模版](https://leetcode-cn.com/problems/smallest-k-lcci/submissions/)
+
+#### 
+
+`bool binary_search(arr[],arr[]+size , target)` 目标值是否在范围内。
+
+`int lower_bound(arr[],arr[]+size , target):` 返回目标值在单调范围内应该插入的位置。

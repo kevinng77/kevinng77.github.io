@@ -1,5 +1,5 @@
 ---
-title: 知识图谱|实体链接（一）
+title: 知识图谱|实体链接 - 论文解读
 date: 2021-08-18
 author: Kevin 吴嘉文
 categories:
@@ -11,8 +11,6 @@ mathjax: true
 toc: true
 comments: 
 ---
-
-# 实体链接 - 论文解读
 
 > 刚开始接触知识抽取部分的内容，在阅读 《Entity Linking with a Knowledge Base: Issues, Techniques, and Solutions》后对部分实体链接的框架和内容进行了梳理。
 >

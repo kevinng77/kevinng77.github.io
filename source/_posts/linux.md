@@ -35,7 +35,7 @@ comments:
 
 ```shell
 命令 + --helpls
-ls, more, man,cat
+ls, more, man,cat, head, tail
 cat 
 ```
 
@@ -110,15 +110,23 @@ ls / -a -l -al -hl
 + 搜索，命令模式下输入/加上要搜索内容
 + 编辑 进入 插入 按 a i o；进入命令模式按：
   + 命令w，wq,x 保存并推出, q! 不保存，w filename 另存为
+    + :set nu 设置显示行号
   + 编辑模式
     + u 撤销
     + nx删除光标后n字符
     + nX删除光标前
     + ndd 剪切 p粘贴 4yy 复制当前开始的n行
     + shift + zz 保存并退出
+    + n<space> 移动光标到 n 字节后
+    + n Enter 向下移动光标n 行
     + nG移动光标到n行
     + /字符串 从光标开始向后查询
-      + n 下一个 N 前一个
+      + 显示搜索结果的：按 n 下一个 N 前一个
+    + ctrl + b/f 上/下一页
+    + dd 删除光标所在行
+    + d1G 删除光标所在到第一行的所有数据
+    + dG 删除光标到最后一行所有数据
+    + d$ 删除光标所在，到本行最后一个字符位置
 
 ## 编译器 gcc
 
@@ -186,8 +194,6 @@ cflags=-Wall -g
 
 $(target):$(obj)
 	$(cc) $(obj) -o $(obj)  #用变量替换上一步的程序
-
-
 ```
 
 系统环境变量
@@ -241,5 +247,78 @@ clean:
 	rm *.o $(obj) a.out -rf
 ```
 
+#### 链接
 
+硬链接：B是A的硬链接，A删了，B还可以访问（类似创建一个新指针）。允许一个文件有多个路径。可以通过硬链接建立多个链接，防止文件误删。`ln A B`
+
+软连接：类似windows的快捷方式。`ln -s A C` 软连接 `ls -l` 查看后为 `l` 前缀
+
+`echo "写入文件的内容">>A` 
+
+## 用户
+
+`useradd -m 用户名`，-m 自动创建用户目录 -g 给用户分给组。用户信息被写入 `/etc/passwd`
+
+`userdel -r 用户名` 删除用户与用户目录  
+
+`su 用户名` 切换用户
+
+`passwd 用户名` 设置用户密码
+
+`passwd -l 用户` 锁定用户，用户无法登录
+
+## 用户组
+
+`groupadd groupname` 创建用户组，`-g` 指定用户组ID，`/etc/group` 下可查看
+
+`groupdel name` 删除用户组
+
+`groupmod name` 修改组信息，`-g` 改ID，`-n`改名字
+
+## 磁盘管理
+
+`df` 整体磁盘使用量
+
+`du -h --max_depth=1` 查看当前文件夹容量
+
+`mount /dev/devicename /mnt/dirname` 将外部设备挂在到目的目录下
+
+`umount -f` 强制卸载 
+
+## 进程
+
+`ps` 
+
+-a：显示终端运行的进程信息
+
+-u：以用户的信息显示进程
+
+-x：显示用户运行进程的参数
+
+`ps -ef` 可以查看到父进程的信息
+
+`pstree` 显示进程树 -p 显示父ID -u 显示用户组
+
+## 安装
+
+yum 在线安装
+
+## 系统环境变量
+
+[Linux下的环境变量](https://blog.csdn.net/jiangyanting2011/article/details/78875928)
+
+**系统级：**
+
+/etc/environment: 是系统在登录时读取的第一个文件，用于为所有进程设置环境变量。系统使用此文件时并不是执行此文件中的命令，而是根据KEY=VALUE模式的代码，对KEY赋值以VALUE，因此文件中如果要定义PATH环境变量，只需加入一行形如PATH=$PATH:/xxx/bin的代码即可。
+
+/etc/profile：是系统登录时执行的第二个文件，可以用于设定针对全系统所有用户的环境变量。该文件一般是调用/etc/bash.bashrc文件。
+/etc/bash.bashrc：系统级的bashrc文件，为每一个运行bash shell的用户执行此文件。此文件会在用户每次打开shell时执行一次。
+
+注意：　/etc/environment是设置整个系统的环境，而/etc/profile是设置所有用户的环境，前者与登录用户无关，后者与登录用户有关。 这两个文件修改后一般都要重启系统才能生效。
+
+**用户级：**
+
+~/.profile: 是对应当前登录用户的profile文件，用于定制当前用户的个人工作环境。
+每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件。这里是推荐放置个人设置的地方
+**~/.bashrc:** **是对应当前登录用户的bash初始化文件，当用户每次打开shell时，系统都会执行此文件一次。平时设置这个文件就可以了。**
 

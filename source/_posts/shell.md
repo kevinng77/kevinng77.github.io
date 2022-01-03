@@ -8,6 +8,7 @@ categories:
 - Notes|理论梳理
 tags:
 - Linux
+- 计算机语言
 - 嵌入式学习
 mathjax: true
 toc: true

@@ -12,8 +12,6 @@ toc: true
 comments: 笔记
 ---
 
-# Prompt范式 （一）
-
 <img src="/img/prompt/image-20210923203741995.png" alt="image-20210923203741995" style="zoom: 33%;" />
 
 > 《Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing》 这篇prompt综述中，详细地对NLP进展与目前prompt的作品进行了充分的分析与总结。同时作者在 [github上](https://github.com/thunlp/PromptPapers) 对prompt论文进行了总结。Prompt 这个系列将根据这些 prompt paper 进行笔记总结与梳理。

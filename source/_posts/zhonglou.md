@@ -1,5 +1,5 @@
 ---
-title: 东亚文化之都泉州地标-钟楼
+title: 忆往昔|泉州地标-钟楼
 date: 2021-11-20
 author: Kevin 吴嘉文
 description: ''
@@ -14,11 +14,9 @@ mathjax: False
 toc: true
 ---
 
-# 钟楼
-
 > 在泉州东街与西街的路口交界处，有一座欧式风格的白色时钟楼。以钟楼为中心，南北方向的中山街，是民国初期古城改造的产物，而北门街与东街，是改革开放后古城改造的成果。钟楼附近仅剩下西街被被动过。——泉州讲古
 
-<img src="/img/zhonglou/image-20211124224655660.png" alt="image-20211124224655660" style="zoom: 67%;" />
+<img src="/img/zhonglou/image-20211124224655660.png" alt="image-20211124224655660" style="zoom: 55%;" />
 
 *(图片来源：[腾讯网 - 泉州三座钟楼，最古老的是西街钟楼，距今已有86年](https://new.qq.com/rain/a/20200301a0n3f600))*
 

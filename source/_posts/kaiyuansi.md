@@ -1,5 +1,5 @@
 ---
-title: 开元寺的那些故事
+title: 忆往昔|开元寺
 date: 2021-09-13
 author: Kevin 吴嘉文
 description: ''
@@ -14,13 +14,13 @@ mathjax: False
 toc: true
 ---
 
-# 开元寺
-
 在西街的台魁巷西面，旧馆驿对面，可以看到开元寺的东塔（证明镇国塔）。开元寺也是[福建省](https://baike.baidu.com/item/福建省)内规模最大的[佛教](https://baike.baidu.com/item/佛教/163332)寺院。该寺始创于唐初[垂拱](https://baike.baidu.com/item/垂拱/6580610)二年（686年），初名莲花道场，开元二十六年（738年）更名开元寺。 
 
 开元寺是泉州最重要的文物古迹之一。1982年，开元寺被列为第二批[全国重点文物保护单位](https://baike.baidu.com/item/全国重点文物保护单位)。
 
-![image-20211127113013563](/img/kaiyuansi/image-20211127113013563.png)
+在开元寺紫云屏后有一条小巷叫三朝巷，北接象峰巷，南连古榕巷。
+
+<img src="/img/kaiyuansi/image-20211127113013563.png" alt="image-20211127113013563.png" style="zoom:60%;" />
 
 *（图：开元寺；来源：[堆糖](https://www.duitang.com/album/?id=63125748&spm=2014.12553688.202.0)）*
 

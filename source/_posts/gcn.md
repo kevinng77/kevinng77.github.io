@@ -11,8 +11,6 @@ toc: true
 comments: 笔记
 ---
 
-# 通俗易懂GCN 
-
 > 不同的数据结构使得学者们创造了不同的特征提取和编码方式，例如CNN的卷积核很好地应用在了图像编码上，RNN的结构更好地提取了文本或者其他序列数据的时间步信息。GCN的设计是为了对图谱，社交网络等图结构数据有更好的解析能力。
 >
 > GCN可以做**节点分类（node classification）、图分类（graph classification）、边预测（link prediction）**，同时也可以提取**图相关的嵌入（graph embedding）**

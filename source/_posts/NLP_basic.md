@@ -12,8 +12,6 @@ toc: true
 comments: 笔记
 ---
 
-## NLP - Baseline Model
-
 > Summary for application and theory for NLP baseline model. Sample code please referred to [My github](https://github.com/kevinng77/NLP_sample).
 >
 > Even we do not use them today, however, learning the baseline models are important for understanding on how to encode and decode a language, which is the priority of NLP.
