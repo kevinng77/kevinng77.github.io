@@ -11,7 +11,7 @@ toc: true
 comments: 笔记
 ---
 
-> 以 [刘焕勇 - 基于知识图谱的医疗问答系统](https://github.com/liuhuanyong/QASystemOnMedicalKG) 为例，梳理知识图谱框架、资源整合（持续更新）。
+> 以 [刘焕勇 - 基于知识图谱的医疗问答系统](https://github.com/liuhuanyong/QASystemOnMedicalKG) 为例，梳理知识图谱框架、资源整合。
 
 <!--more-->
 

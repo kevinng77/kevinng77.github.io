@@ -442,9 +442,99 @@ docker push kevin/mytomcat:0.1
 
 ## docker网络
 
-代补充
+Docker启动会默认创建docker0虚拟网桥，是Linux的一个bridge，可以理解成一个软件交换机。它会在挂载到它的网口之间进行转发。之后所有容器都是在172.17.0.x的网段。当创建一个Docker容器的时候，同时会创建一对veth pair。[Linux 虚拟网络设备 veth-pair 详解，看这一篇就够了](https://www.cnblogs.com/bakari/p/10613710.html)。
 
-### docker 其他问题
+因此容器都通过接口链接到网关docker0，实现了相互通信。
+
+![img](https://img-blog.csdnimg.cn/20191208165648271.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTM3NjEwMzY=,size_16,color_FFFFFF,t_70)
+
+通过 `--link` 可以在hosts 配置中添加映射，实现使用容器名称代替ip：
+
+```shell
+docker run -d -P --name ubuntu02 --link ubuntu03 ubuntu
+```
+
+在 ubuntu02 中可以使用 `ping ubuntu03` 。不建议使用 link
+
+#### 自定义网络
+
+`docker network` 相关命令：
+  `connect`     Connect a container to a network
+  `create`      Create a network
+  `disconnect`  Disconnect a container from a network
+  `inspect`     Display detailed information on one or more networks
+  `ls`          List networks
+  `prune`       Remove all unused networks
+  `rm`          Remove one or more networks
+
+`docekr network ls` 查看网络模式，包括 `bridge` 桥接 docker（默认），`none` 不配置网络，`host` 和宿主机共享网络。自定义网络：
+
+```shell
+docker network create --driver bridge --subnet 192.168.0.0/16 --getway 192.168.0.1 mynet
+```
+
+自定义的网络不需要 `--link` 也可以使用容器名称 `ping` 。不同集群使用不同的网络。`docekr network connect mynet container ` 将容器加入到某个网络中
+
+### Docker Compose
+
+Docker Compose  [文档](https://docs.docker.com/compose/)。准备好 `dockerfile`, `docker-compose.yml`（如下），使用 `docker-compose up` 运行。
+
+```yaml
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    links:
+      - redis
+  redis:
+    image: redis
+volumes:
+  logvolume01: {}
+```
+
+version 对应 docker 版本，services 中配置各个容器，如上有 `web`，`redis` 两个项目。
+`build` 即通过 docker build 构建镜像，或者使用 `image` 使用已有镜像。  
+[其他参数](https://docs.docker.com/compose/compose-file/compose-file-v3/) 比较常用的有 `depends_on`, `deploys`, `expose` 等。
+
+后台运行 `docker-compose up -d` 包括网络配置，自动下载依赖镜像， 建立 dockerfile 镜像，启动**全部服务**。使用 `docker-compose down `结束所有服务（容器）。`docker-compose ps` 查看所有 compose 进程。
+`docker-compose run web env` 
+
+#### docker Swarm
+
+[文档](https://docs.docker.com/engine/swarm/) 小规模服务可以使用 swarm 实现，规模大时考虑 k8s
+
+> `docker swarm`
+> Commands:
+>   ca          Display and rotate the root CA
+>   init        Initialize a swarm
+>   join        Join a swarm as a node and/or manager
+>   join-token  Manage join tokens
+>   leave       Leave the swarm
+>   unlock      Unlock swarm
+>   unlock-key  Manage the unlock key
+>   update      Update the swarm
+
+Swarm 分为主节点、副节点
+初始化 Swarm 主节点：`docker swarm init --advertise-addr 私网ip`
+其他机器加入节点：`docker swarm join --token xxxxx`
+在主节点上通过 `docker swarm join-token manager` 或 `docker swarm join-token worker` 生成 token。
+
+保证至少2个管理节点存活才可用。集群需要3个以上主节点。
+
+##### docker service
+
+启动服务：`docker service create -p 8888:80 --name new_service images` ，服务会在随机的集群机器上运行。
+
+服务扩缩容：`docker service update --replicas 3 new_service new_service` 在 3 个机器上运行 new_service 服务。等于 `docker service scale new_service=3`
+
+其他相关命令：`docker stack` 部署集群，`docker secret` 证书相关，`docker config` 等
+
+### 其他
 
 jupyter notebook再使用的时候需要配置：
 
@@ -467,11 +557,7 @@ c.NotebookApp.port =8888
 
 ## 其他参考
 
-https://blog.csdn.net/xiaozecheng/article/details/106145593
-
-https://bbs.huaweicloud.com/blogs/133713
-
+[Docker 部署深度学习环境](https://bbs.huaweicloud.com/blogs/133713) 
 [nvidia docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
-
 [nvidia docker及训练环境配置文档](https://bluesmilery.github.io/blogs/252e6902/)
 

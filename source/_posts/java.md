@@ -1,6 +1,6 @@
 ---
 title: Java 基本
-date: 2021-12-30
+date: 2021-11-26
 author: Kevin 吴嘉文
 categories:
 - Notes|理论梳理
@@ -15,7 +15,7 @@ comments: 笔记
 
 <!--more-->
 
-> 一些关键词：jvm java 虚拟机，应用服务器，高可用，高性能，高并发，web 开发，hadoop 大数据领域，android 手机端，可移植性（write once, run anywhere），高性能，分布式，动态性，javaSE（桌面，控制台），javaEE（web，服务器）
+> Java关键词：jvm java 虚拟机，应用服务器，高可用，高性能，高并发，web 开发，hadoop 大数据领域，android 手机端，可移植性（write once, run anywhere），高性能，分布式，动态性，javaSE（桌面，控制台），javaEE（web，服务器）
 
 ### JDK,JRE,JVM
 
@@ -1123,6 +1123,242 @@ pool.scheduleAtFixedRate(new TimerTask() {
 ```
 
 线程的6中状态：New, Runnable, Teminated, Blocked, Waiting（等待唤醒）, Timed Waiting
+
+## 技术概述
+
+### 网络通讯
+
+[计算机网络笔记](http://wujiawen.xyz/2021/04/02/TCPIP1/)
+
+**IP 操作 API：InetAddress**
+
+提供域名方式获取`InetAddress ip2 = InetAddress.getByName("wujiawen.xyz");`
+基本方法：`ip2.getHostAddress()`, `ip2.getHostName()`, `ip2.isReachable(5000)`
+
+**UDP**
+
+接收
+
+```java
+DatagramSocket socket = new DatagramSocket(8888);
+byte[] buffer = new byte[1024 * 64];
+DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+socket.receive(packet);
+packet.getSocketAddress(); // packet.getPort()
+```
+
+发送
+
+```java
+DatagramSocket socket = new DatagramSocket();
+byte[] buffer = "message".getBytes(StandardCharsets.UTF_8);
+DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getLocalHost(),8888);
+socket.send(packet);
+```
+
+广播发送使用 `DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getLocalHost(),8888);`；组播使用 `MulticastSocket`
+
+**TCP**
+
+`java.net.Socket` 底层使用 TCP 协议。服务器一个线程只能建立一个客户端的通信。
+
+客户端 - 发送消息
+
+```java
+Socket socket = new Socket("127.0.0.1",7777);
+OutputStream os = socket.getOutputStream();
+Scanner sc = new Scanner(System.in);
+PrintStream ps = new PrintStream(os);
+while (true){
+    String msg = sc.nextLine();
+    ps.println(msg);
+    ps.flush();
+
+}
+```
+
+服务端 - 接收消息
+
+```java
+ServerSocket serverSocket = new ServerSocket(7777);
+
+while (true){
+    Socket socket = serverSocket.accept();
+    System.out.println(socket.getRemoteSocketAddress() + "上线了");
+
+    new ServerThread(socket).start();
+}
+
+// ServerThread
+InputStream is = socket.getInputStream();
+BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+String msg;
+if ( (msg = br.readLine()) != null ){
+    System.out.println(socket.getRemoteSocketAddress());
+    System.out.println(msg);
+```
+
+需要对架构进行优化，如使用线程池等；若要实现客户端的发送与接收功能，可以在服务器端使用 `List` 或 `Map` 储存客户端 `socket` ，再检索 `Map` 发送消息。[BS 框架概述视频](https://www.bilibili.com/video/BV1Cv411372m?p=185)
+
+### 单元测试
+
+针对最小的功能单元编写测试代码，即对 Java 的方法进行测试。通常使用 JUnit 开源测试框架进行测试，可以做到一键测试全部方法，生成测试报告，单元测试中的某个方法失败不影响其他测试等。
+
+#### JUnit
+
+IDEA 通常整合了 Junit 框架。如果没有整合，需要导入 `junit-xx.jar`，`hamcrest-core-xx.jar` 。编写以下的测试类，在 IDEA 中可以直接右键导航栏 -> `run all test`，
+
+```java
+public class test {
+    @Test
+    public void test1(){
+        Mycall call = new Mycall();
+        int result = call.demo1();
+        Assert.assertEquals(result + "should be 1",1,result);
+    }
+    
+    @Test
+    public void test2(){
+        Mycall call = new Mycall();
+        call.run();
+    }
+}
+
+class Mycall{
+    public int demo1(){return 1;}
+    public void run(){System.out.println(10 / 0);}
+}
+```
+
+JUnit 4： `@Before`，`@After` `@BeforeClass` `@ AfterClass`
+
+### 反射
+
+**获取类对象使用：**
+
+`Class c = Class.forName("xyz.wujiawen.hello2.test");`
+`Class c3 = test.class;
+test t = new test();` , `Class c2 = t.getClass();`
+
+**提取类中构造器对象：**
+
+公开构造器：`Constructor[] constructors = c.getConstructors();` 
+全部构造器：`Constructor[] constructors = c.getDeclaredConstructors();`
+无参构造器：`Constructor constructor = c.getConstructor();`
+通过参数传递，获取有参构造器：` c.getDeclaredConstructor(int.class);`
+
+**通过构造器创建对象：**
+
+遇到私有构造器，打开权限：`constructor.setAccessible(true);`
+得到构造器对象：`test t = (test) constructor.newInstance();`
+
+**获取成员变量：**
+
+获取全部：`Field[] fields = c.getDeclaredFields();` 取值：``fields[0].getName()`, `fields[0].getType()`
+根据名称获取：`Field field = c.getDeclaredField("a");` 
+给 `test t` 赋值`field.set(t,18);` 
+取值：`field.get(t)`
+
+**获取方法对象：**
+
+全部方法：`Method[] methods = c.getDeclaredMethods();` 获取单个方法用 `getDeclaredMethod()`  传入方法名获取对应方法。
+出发方法：`method.invoke(s,"args");`
+
+**发过编译阶段为集合添加数据**
+
+```java
+ArrayList<Integer> a = new ArrayList<>();
+Class c = a.getClass();
+Method add = c.getDeclaredMethod("add", Object.class);
+add.invoke(a,"args");
+```
+
+也可以使用 `ArrayList b = a;  b.add("others")`
+
+提供通用框架，支持保存所有对象信息：
+
+```java
+try{
+    PrintStream ps = new PrintStream(new FileOutputStream("./test.txt"),true);
+    Class c = obj.getClass();
+    ps.println(">>>" + c.getSimpleName() + ">>>");
+
+    Field[] fields = c.getDeclaredFields();
+    for (Field field:fields){
+        field.setAccessible(true);
+        String name = field.getName();
+        String value = "" + field.get(obj);
+        ps.println(name + "=" + value);
+    }
+}catch (Exception e){
+    e.printStackTrace();
+}
+```
+
+### 注解
+
+自定义注解：`public @interface test {String name(); int age() default 12;}` 
+有多个属性未提供默认值的情况下，注解属性名称必须提供：`@test(name="fillin",age=1)`
+
+元注解：`@Target` 约束自定义注解的使用地方，`@Target({ElementType.METHOD,ElementType.FIELD})`
+只能注解方法与成员变量；`@Retention` 申明注解生命周期：`@Retention(RetentionPolicy.RUNTIME)` 在运行时仍然生效。
+
+注解解析：
+
+```java
+@Test
+public void parseClass() throws NoSuchMethodException {
+    Class c = bookstore.class;
+    Method m = c.getDeclaredMethod("run");
+
+    if(c.isAnnotationPresent(test.class)){
+        test t = (test) c.getDeclaredAnnotation(test.class);  
+        // m.getDeclaredAnnotation
+        System.out.println(t.name());
+    }
+}
+```
+
+注解应用场景 - 有注解的方法才执行：遍历所有方法，使用注解解析检测该方法是否有加注解。使用反射触发被注解方法。
+
+### XML
+
+纯文本，默认使用UTF-8 可嵌套，可用浏览器查看。常用与数据传输、软件配置等。
+
+抬头声明 `<?xml version="1.0" encoding="UTF-8" ?>` 用于识别 xml 文件。
+标签格式：`<name id=1></name>`，必须且只能存在一个本标签
+注释：`<!-- comment -->`  
+特殊字符：小于`&lt;`大于 ` &gt;` 与 `&&` 使用：` &amp;&amp`。字符数字区：`<![CDATA[select * from ...]]>`
+
+**文档约束：**
+
+DTD：编写 DTD 文档，后缀必须是 .dtd；将编写的XML文件导入到XML中 `<!DOCTYPE XX SYSTEM "data.dtd">` ；不能约束具体的数据类型，可约束XML文件的编写。
+
+schema：本身是XML文件；编写schema约束文档，后缀 .xsd；导入schema 文档 
+
+```java
+<书架 xmlns="http://www.itcase.cn"
+    xmlns:xsi="http://xxxxxxxxx"
+        xsi:schemaLocation="xxxxxxx data.xsd"
+    >
+</书架>
+```
+
+**XML解析：**
+
+dom4j [官网](https://dom4j.github.io/) 解析文件大致格式为：`Document{Element 标签{Attribute:Text}}`。 `Element`, `Attribute` 和 `Text` 均为 Node 对象。
+
+`SAXReader saxReader = new SAXReader();` 将文件置于 src 文件夹读取：  `InputStream is = Dom4app.class.getResourceAsStream("/filename.xml");` 。解析文件：`Document document = saxReader.read(is);`  获取文本等`document.getText();`
+
+**Xpath**
+
+使用Xpath，带入 Dom4j 与 jaxen.jar。通过 Dom4j 获取Document文件，利用Xpath 完成选取 XML 文档元素节点。
+通过Xpath检索：`List<Node> nodes = document.selectNodes("xpath")`，xpath 路径如：
+绝对路径：`/根元素/子元素/属性名/等等`
+遍历路径下全部子路径：`路径//目标元素`
+锁定元素：`//@id` ，查询 name 元素包含id属性的 `//name[@id=8]`
+`Element ele = (Element) node; `
 
 
 

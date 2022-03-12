@@ -89,9 +89,7 @@ $$
 
 ## 相关代码
 
-以下我们对这份 [Pytorch 的GAT代码](https://github.com/gordicaleksa/pytorch-GAT) 进行解读：
-
-每周更新。
+佛系更新...
 
 ## 参考
 

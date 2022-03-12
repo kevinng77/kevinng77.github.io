@@ -515,6 +515,7 @@ int main(){
 + `pair<T1,T2> p;`
 
 + `set<int> s = {....}; s.find(), .count()`set 的迭代器是const的。
+  `set<int>::iterator it; for(it=s.begin();it!=s.end();it++){*it;}`
 
 + 利用无序容器的优势`unorderd_map`
 
