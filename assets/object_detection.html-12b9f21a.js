@@ -1,0 +1,1 @@
+import{al as t,Q as c,S as o,ac as n,H as _}from"./framework-a614cb70.js";const a={};function r(s,l){const e=_("ObjectDetection");return c(),o("div",null,[n(e)])}const m=t(a,[["render",r],["__file","object_detection.html.vue"]]);export{m as default};

@@ -1,0 +1,1 @@
+import{_ as a,P as t,U as c,Y as e,a1 as o}from"./framework-6cee4965.js";const r={},s=e("h1",{id:"nihao",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#nihao","aria-hidden":"true"},"#"),o(" nihao")],-1),n=[s];function _(h,i){return t(),c("div",null,n)}const l=a(r,[["render",_],["__file","search.html.vue"]]);export{l as default};

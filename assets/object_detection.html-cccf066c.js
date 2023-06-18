@@ -1,0 +1,1 @@
+import{_ as t,Q as c,V as o,Y as n,H as _}from"./framework-bcd5cf65.js";const r={};function s(a,l){const e=_("ObjectDetection");return c(),o("div",null,[n(e)])}const m=t(r,[["render",s],["__file","object_detection.html.vue"]]);export{m as default};

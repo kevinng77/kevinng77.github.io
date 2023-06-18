@@ -1,0 +1,1 @@
+import{al as a,Q as l,S as _,ac as o,a4 as s,H as e}from"./framework-a614cb70.js";const r={};function i(m,p){const n=e("HopeIcon"),t=e("AutoCatalog");return l(),_("div",null,[o(t,null,{icon:s(({icon:c})=>[o(n,{icon:c},null,8,["icon"])]),_:1})])}const d=a(r,[["render",i],["__file","index.html.vue"]]);export{d as default};

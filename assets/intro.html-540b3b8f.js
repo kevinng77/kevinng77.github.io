@@ -1,0 +1,1 @@
+import{_ as t,Q as o,V as n,Z as e}from"./framework-6f4ef33f.js";const _={},s=e("p",null,"初级跑步爱好者 | 指弹吉他 | 福建石狮居民",-1),c=e("p",null,"希望这些笔记能帮上一点点小忙",-1),r=[s,c];function l(a,i){return o(),n("div",null,r)}const f=t(_,[["render",l],["__file","intro.html.vue"]]);export{f as default};
