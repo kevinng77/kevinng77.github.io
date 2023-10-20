@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: http://wujiawen.xyz/sitemap.xml
+Sitemap: http://antarina.tech/sitemap.xml
